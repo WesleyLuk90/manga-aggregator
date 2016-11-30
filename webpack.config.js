@@ -29,7 +29,7 @@ module.exports = {
     progress: true,
     colors: true,
     devtool: isDev() ? 'eval-cheap-module-source-map' : undefined,
-    entry: './client/app.js',
+    entry: './client/main.js',
     output: {
         path: path.join(__dirname, 'public'),
         filename: 'bundle.js',
@@ -41,10 +41,10 @@ module.exports = {
         loaders: [{
             test: /.js$/,
             exclude: /(node_modules|bower_components)/,
-            loader: 'babel',
-            query: {
-                presets: ['es2015'],
-            },
+            loaders: ['ng-annotate', 'babel?presets=es2015'],
+            // query: {
+            //     presets: ['es2015'],
+            // },
         }, {
             test: /\.html$/,
             loaders: ['html'],
