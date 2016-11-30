@@ -1,11 +1,21 @@
 ul.navigation
-    li
-        a.navigation-link(ui-sref="things") Home
-    li
-        a.navigation-link(ui-sref="things") Updates
-    li
-        a.navigation-link(ui-sref="things") Favorites
-    li
-        a.navigation-link(ui-sref="things") Reading List
-    li
-        a.navigation-link(ui-sref="things") Search
+    li(ui-sref-active-eq="some-class")
+        a.navigation-link(ui-sref="home")
+            span.fa.fa-home
+            span.navigation-link__label Home
+    li(ui-sref-active-eq="some-class")
+        a.navigation-link(ui-sref="updates")
+            span.fa.fa-home
+            span.navigation-link__label Updates
+    li(ui-sref-active-eq="some-class")
+        a.navigation-link(ui-sref="favorites")
+            span.fa.fa-home
+            span.navigation-link__label Favorites
+    li(ui-sref-active-eq="some-class")
+        a.navigation-link(ui-sref="reading")
+            span.fa.fa-home
+            span.navigation-link__label Reading
+    li(ui-sref-active-eq="some-class")
+        a.navigation-link(ui-sref="search")
+            span.fa.fa-home
+            span.navigation-link__label Search

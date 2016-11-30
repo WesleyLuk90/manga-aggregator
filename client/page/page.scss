@@ -1,0 +1,28 @@
+body,
+html {
+    height: 100%;
+}
+$nav-width: 200px;
+
+.navigation {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: $nav-width;
+    background-color: #222;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navigation-link {
+    color: white;
+    font-weight: bold;
+}
+
+.app-container {
+    padding-left: $nav-width;
+    background-color: #333;
+    min-height: 100%;
+}
