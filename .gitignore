@@ -1,0 +1,7 @@
+node_modules
+public/*.eot
+public/*.svg
+public/*.woff2
+public/*.ttf
+public/*.woff
+public/*.js
