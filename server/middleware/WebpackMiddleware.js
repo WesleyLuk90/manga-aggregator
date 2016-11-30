@@ -5,7 +5,7 @@ export default class WebpackMiddleware {
     load(app) {
         const config = require('../../webpack.config');
         const compiler = webpack(config);
-        const middleware = webpackMiddleware(compiler, { publicPath: '/' });
+        const middleware = webpackMiddleware(compiler, { publicPath: '/assets/' });
         app.use(middleware);
     }
 }

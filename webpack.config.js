@@ -31,8 +31,9 @@ module.exports = {
     devtool: isDev() ? 'eval-cheap-module-source-map' : undefined,
     entry: './client/main.js',
     output: {
-        path: path.join(__dirname, 'public'),
+        path: path.join(__dirname, 'public/assets'),
         filename: 'bundle.js',
+        publicPath: '/assets/',
     },
     resolve: {
         extensions: ['', '.js'],
