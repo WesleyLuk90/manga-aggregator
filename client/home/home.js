@@ -10,7 +10,7 @@ export default angular.module('mangaApp.home', ['ui.router'])
 
         $stateProvider.state({
             name: 'home',
-            url: '',
+            url: '/',
             template: '<home />',
         });
     })

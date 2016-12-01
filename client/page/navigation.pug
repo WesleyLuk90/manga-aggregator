@@ -1,26 +1,31 @@
 ul.navigation
     li
-        a.navigation-link(ui-sref="home", ui-sref-active-eq="ac")
+        a.navigation-link(ui-sref="home", ui-sref-active-eq="navigation-link__active")
             span.fa.fa-home
             | &nbsp;
             span.navigation-link__label Home
     li
-        a.navigation-link(ui-sref="updates", ui-sref-active-eq="ac")
-            span.fa.fa-home
+        a.navigation-link(ui-sref="updates", ui-sref-active-eq="navigation-link__active")
+            span.fa.fa-bullhorn
             | &nbsp;
             span.navigation-link__label Updates
     li
-        a.navigation-link(ui-sref="favorites", ui-sref-active-eq="ac")
-            span.fa.fa-home
+        a.navigation-link(ui-sref="favorites", ui-sref-active-eq="navigation-link__active")
+            span.fa.fa-star
             | &nbsp;
             span.navigation-link__label Favorites
     li
-        a.navigation-link(ui-sref="reading", ui-sref-active-eq="ac")
-            span.fa.fa-home
+        a.navigation-link(ui-sref="reading", ui-sref-active-eq="navigation-link__active")
+            span.fa.fa-book
             | &nbsp;
             span.navigation-link__label Reading
     li
-        a.navigation-link(ui-sref="search", ui-sref-active-eq="ac")
-            span.fa.fa-home
+        a.navigation-link(ui-sref="search", ui-sref-active-eq="navigation-link__active")
+            span.fa.fa-search
             | &nbsp;
             span.navigation-link__label Search
+    li
+        a.navigation-link(ui-sref="settings", ui-sref-active-eq="navigation-link__active")
+            span.fa.fa-cog
+            | &nbsp;
+            span.navigation-link__label Settings
