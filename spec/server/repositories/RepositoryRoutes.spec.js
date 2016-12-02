@@ -1,5 +1,5 @@
-import RepositoryRoutes from '../../../server/repositories/RepositoryRoutes';
 import mangaApi from 'manga-api';
+import RepositoryRoutes from '../../../server/repositories/RepositoryRoutes';
 
 describe('router', () => {
     let routes;
