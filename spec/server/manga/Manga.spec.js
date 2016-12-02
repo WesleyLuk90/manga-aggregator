@@ -9,7 +9,7 @@ describe('Manga', () => {
         bottle = new Module().create();
         MangaModel = bottle.container.Manga;
     });
-    it('should create manga manga', (done) => {
+    it('should create manga', (done) => {
         const manga = new Manga(MangaHandle.fromUrl('abc'))
             .setName('my name')
             .setAltNames(['alt1', 'alt2'])
