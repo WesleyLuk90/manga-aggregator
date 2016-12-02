@@ -5,7 +5,8 @@ import StaticMiddleware from './middleware/StaticMiddleware';
 import defaultRouter from './routes/defaultRouter';
 
 export default class Server {
-    constructor() {
+    constructor(repositoryRoutes) {
+        this.repositoryRoutes = repositoryRoutes;
         this.createApp();
         this.loadMiddleware();
         this.loadRoutes();
@@ -21,6 +22,7 @@ export default class Server {
     }
 
     loadRoutes() {
+        this.app.use(this.repositoryRoutes.getRouter());
         this.app.use(defaultRouter);
     }
 
@@ -28,3 +30,6 @@ export default class Server {
         this.app.listen(3000, () => { console.log('listening on port 3000'); });
     }
 }
+
+Server.$name = 'server';
+Server.$inject = ['repositoryRoutes'];

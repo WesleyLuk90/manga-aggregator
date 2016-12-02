@@ -1,10 +1,10 @@
 import express from 'express';
-import mangaApi from 'manga-api';
 
 export default class RepositoryRoutes {
 
-    constructor() {
-        this.repositoryList = mangaApi.RepositoryListFactory.create();
+    constructor(mangaService, repositoryList) {
+        this.mangaService = mangaService;
+        this.repositoryList = repositoryList;
     }
 
     listRepositories(req, res) {
@@ -17,11 +17,15 @@ export default class RepositoryRoutes {
     searchRepository(req, res) {
         const repo = this.repositoryList.get(req.body.repository);
         return repo.search()
-            .then(manga =>
-                res.json({
-                    manga,
-                })
-            );
+            .then((manga) => {
+                this.mangaService.loadMangas(manga);
+                res.json({ manga });
+            });
+    }
+
+    repositoryCapabilities(req, res) {
+        const repo = this.repositoryList.get(req.body.repository);
+        res.json({ capabilities: repo.getCapabilities() });
     }
 
     getRouter() {
@@ -31,3 +35,6 @@ export default class RepositoryRoutes {
         return router;
     }
 }
+
+RepositoryRoutes.$name = 'repositoryRoutes';
+RepositoryRoutes.$inject = ['mangaService', 'repositoryList'];
