@@ -1,8 +1,11 @@
 import express from 'express';
+import io from 'socket.io';
+import { Server as HttpServer } from 'http';
 
 import WebpackMiddleware from './middleware/WebpackMiddleware';
 import StaticMiddleware from './middleware/StaticMiddleware';
 import defaultRouter from './routes/defaultRouter';
+
 
 export default class Server {
     constructor(repositoryRoutes) {
@@ -14,6 +17,7 @@ export default class Server {
 
     createApp() {
         this.app = express();
+        this.server = new HttpServer(this.app);
     }
 
     loadMiddleware() {
@@ -24,10 +28,11 @@ export default class Server {
     loadRoutes() {
         this.app.use(this.repositoryRoutes.getRouter());
         this.app.use(defaultRouter);
+        this.socker = io(this.server);
     }
 
     start() {
-        this.app.listen(3000, () => { console.log('listening on port 3000'); });
+        this.server.listen(3000, () => { console.log('listening on port 3000'); });
     }
 }
 

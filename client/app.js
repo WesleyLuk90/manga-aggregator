@@ -6,6 +6,7 @@ import favorites from './favorites/favorites';
 import reading from './reading/reading';
 import search from './search/search';
 import settings from './settings/settings';
+import services from './services/services';
 
 require('angular-ui-router');
 
@@ -18,10 +19,14 @@ const app = angular
         reading,
         search,
         settings,
+        services,
         'ui.router',
     ]);
 app.config(($locationProvider) => {
     $locationProvider.html5Mode(true);
+});
+app.run((updateService) => {
+    updateService.start();
 });
 
 angular.bootstrap(document.body, ['mangaApp'], { strictDi: true });
