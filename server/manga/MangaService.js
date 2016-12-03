@@ -1,9 +1,9 @@
 import rx from 'rx';
 
 export default class MangaService {
-    constructor(repositoryList, Manga, mangaEvents) {
+    constructor(repositoryList, mangaResource, mangaEvents) {
         this.repositoryList = repositoryList;
-        this.Manga = Manga;
+        this.mangaResource = mangaResource;
         this.mangaEvents = mangaEvents;
     }
 
@@ -19,13 +19,13 @@ export default class MangaService {
     }
 
     getOrLoad(mangaHandle) {
-        return this.Manga.findOne({ handle: mangaHandle })
+        return this.mangaResource.getByHandle(mangaHandle)
             .then((manga) => {
                 if (!manga) {
                     return this.repositoryList
                         .getRepositoryForHandle(mangaHandle)
                         .getManga(mangaHandle)
-                        .then(mangaData => new this.Manga(mangaData).save());
+                        .then(mangaData => this.mangaResource.create(mangaData));
                 }
                 return manga;
             });
@@ -34,4 +34,4 @@ export default class MangaService {
 
 
 MangaService.$name = 'mangaService';
-MangaService.$inject = ['repositoryList', 'Manga', 'mangaEvents'];
+MangaService.$inject = ['repositoryList', 'mangaResource', 'mangaEvents'];

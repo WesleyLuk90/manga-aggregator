@@ -1,8 +1,8 @@
-import Module from '../../../server/Module';
+import BottleFactory from '../BottleFactory';
 
 describe('Connection', () => {
     it('should be using the test database', () => {
-        const bottle = new Module().create();
+        const bottle = BottleFactory.create();
         expect(bottle.container.connectionConfig.getConnectionString()).toMatch(/manga_aggregator_test$/);
     });
 });

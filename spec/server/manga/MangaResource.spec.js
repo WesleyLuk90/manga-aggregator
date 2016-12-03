@@ -1,13 +1,12 @@
 import { Manga, MangaHandle, ChapterHandle } from 'manga-api';
+import BottleFactory from '../BottleFactory';
 
-import Module from '../../../server/Module';
-
-describe('Manga', () => {
+describe('MangaResource', () => {
     let bottle;
-    let MangaModel;
+    let mangaResource;
     beforeEach(() => {
-        bottle = new Module().create();
-        MangaModel = bottle.container.Manga;
+        bottle = BottleFactory.create();
+        mangaResource = bottle.container.mangaResource;
     });
     it('should create manga', (done) => {
         const manga = new Manga(MangaHandle.fromUrl('abc'))
@@ -25,10 +24,10 @@ describe('Manga', () => {
             ])
             .setPreviewImageUrl('some url');
 
-        new MangaModel(manga)
-            .save()
-            .then(savedModel => MangaModel.findOne({ _id: savedModel._id }))
+        mangaResource.create(manga)
             .then((mangaModel) => {
+                expect(mangaModel._id).toBeTruthy();
+
                 expect(mangaModel.mangaHandle.url).toEqual(manga.mangaHandle.url);
                 expect(mangaModel.name).toEqual(manga.name);
                 expect(Array.from(mangaModel.altNames)).toEqual(manga.altNames);
@@ -44,6 +43,15 @@ describe('Manga', () => {
                         expect(chapter.url).toEqual(manga.chapters[index].url);
                     });
             })
+            .then(() => mangaResource.getByHandle(manga.getMangaHandle()))
+            .then(foundManga => expect(foundManga).toBeTruthy())
+            .catch(fail)
+            .then(done);
+    });
+
+    it('should not find non-existant manga', (done) => {
+        mangaResource.getByHandle(MangaHandle.fromUrl('doesntexist'))
+            .then(foundManga => expect(foundManga).toBeNull())
             .catch(fail)
             .then(done);
     });

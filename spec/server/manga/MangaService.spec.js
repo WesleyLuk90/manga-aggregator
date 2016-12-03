@@ -1,5 +1,5 @@
 import { MangaHandle } from 'manga-api';
-import Module from '../../../server/Module';
+import BottleFactory from '../BottleFactory';
 
 describe('MangaService', () => {
     let mangaService;
@@ -8,7 +8,7 @@ describe('MangaService', () => {
     let repositoryList;
 
     beforeEach(() => {
-        bottle = new Module().create();
+        bottle = BottleFactory.create();
         mangaEvents = jasmine.createSpyObj('mangaEvents', ['emitLoadedManga']);
         bottle.constant('mangaEvents', mangaEvents);
         mangaService = bottle.container.mangaService;

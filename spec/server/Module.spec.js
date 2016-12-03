@@ -1,4 +1,4 @@
-import Module from '../server/Module';
+import Module from '../../server/Module';
 
 describe('Module', () => {
     it('should load dependencies', () => {

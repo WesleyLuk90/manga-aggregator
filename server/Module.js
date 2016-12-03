@@ -7,6 +7,7 @@ import Manga from './manga/Manga';
 import Connection from './db/Connection';
 import MangaEvents from './manga/MangaEvents';
 import { connectionConfigFactory } from './db/ConnectionConfig';
+import MangaResource from './manga/MangaResource';
 
 export default class Module {
     constructor() {
@@ -22,6 +23,7 @@ export default class Module {
         bottle.register(Manga);
         bottle.register(MangaEvents);
         bottle.register(Connection);
+        bottle.register(MangaResource);
         return bottle;
     }
 }
