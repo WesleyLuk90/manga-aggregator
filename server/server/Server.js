@@ -1,18 +1,19 @@
 import express from 'express';
-import io from 'socket.io';
 import { Server as HttpServer } from 'http';
 
-import WebpackMiddleware from './middleware/WebpackMiddleware';
-import StaticMiddleware from './middleware/StaticMiddleware';
-import defaultRouter from './routes/defaultRouter';
+import StaticMiddleware from '../middleware/StaticMiddleware';
+import defaultRouter from '../routes/defaultRouter';
 
 
 export default class Server {
-    constructor(repositoryRoutes) {
+    constructor(repositoryRoutes, socketService, webpackMiddleware) {
         this.repositoryRoutes = repositoryRoutes;
+        this.socketService = socketService;
+        this.webpackMiddleware = webpackMiddleware;
         this.createApp();
         this.loadMiddleware();
         this.loadRoutes();
+        this.loadSocket();
     }
 
     createApp() {
@@ -21,14 +22,17 @@ export default class Server {
     }
 
     loadMiddleware() {
-        new WebpackMiddleware().load(this.app);
+        this.webpackMiddleware.load(this.app);
         new StaticMiddleware().load(this.app);
     }
 
     loadRoutes() {
         this.app.use(this.repositoryRoutes.getRouter());
         this.app.use(defaultRouter);
-        this.socker = io(this.server);
+    }
+
+    loadSocket() {
+        this.socketService.load(this.server);
     }
 
     start() {
@@ -37,4 +41,4 @@ export default class Server {
 }
 
 Server.$name = 'server';
-Server.$inject = ['repositoryRoutes'];
+Server.$inject = ['repositoryRoutes', 'socketService', 'webpackMiddleware'];

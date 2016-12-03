@@ -1,7 +1,12 @@
 import angular from 'angular';
 
 class SearchController {
+    constructor(mangaService) {
+        'ngInject';
 
+        mangaService.getRepositories()
+            .then(r => console.log(r));
+    }
 }
 
 export default angular.module('mangaApp.search', [])

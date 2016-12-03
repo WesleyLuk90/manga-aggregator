@@ -2,9 +2,7 @@ import angular from 'angular';
 import io from 'socket.io-client';
 
 class UpdateService {
-    constructor() {
-        console.log('stuff');
-    }
+    constructor() {}
     start() {
         this.socket = io(window.location.toString());
         this.socket.on('connect', () => {

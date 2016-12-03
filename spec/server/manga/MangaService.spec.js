@@ -32,4 +32,15 @@ describe('MangaService', () => {
             .catch(fail)
             .then(done);
     });
+
+    it('should load mangas', (done) => {
+        const handles = [MangaHandle.fromUrl('mock://manga'), MangaHandle.fromUrl('mock://manga')];
+        mangaService.loadMangas(handles)
+            .toPromise()
+            .then(() => {
+                expect(mangaEvents.emitLoadedManga.calls.count()).toBe(2);
+            })
+            .catch(fail)
+            .then(done);
+    });
 });
