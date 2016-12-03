@@ -27,7 +27,7 @@ class RepositoryService {
             .keys()
             .pullAll(['fields', 'includedTags', 'excludedTags'])
             .forEach((extraTag) => {
-                throw new Error(`Invalid option ${extraTag}`);
+                throw new Error(`Invalid option '${extraTag}'`);
             });
     }
 }

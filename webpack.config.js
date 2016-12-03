@@ -14,8 +14,8 @@ if (isDev()) {
 function makeStyleLoader(matcher, loaders) {
     if (isDev()) {
         return {
+            loaders,
             test: matcher,
-            loaders: loaders,
         };
     } else {
         return {

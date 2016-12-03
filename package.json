@@ -7,7 +7,9 @@
         "type": "git"
     },
     "scripts": {
-        "start": "node server/index.js"
+        "start": "node server/index.js",
+        "test": "jasmine",
+        "browser-test": "karma start karma.conf.js"
     },
     "author": "Wesley Luk <wesleyluk@gmail.com>",
     "license": "MIT",
