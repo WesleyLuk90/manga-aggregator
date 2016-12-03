@@ -14,7 +14,7 @@ describe('router', () => {
     }
 
     beforeEach(() => {
-        req = { body: {} };
+        req = { query: {} };
         res = jasmine.createSpyObj('response', ['json']);
         mangaService = jasmine.createSpyObj('mangaService', ['loadMangas']);
         routes = new RepositoryRoutes(mangaService, mangaApi.RepositoryListFactory.create());
@@ -32,7 +32,7 @@ describe('router', () => {
     });
 
     it('should get repository capabilities', () => {
-        req.body = {
+        req.query = {
             repository: 'MockRepository',
         };
         routes.repositoryCapabilities(req, res);
@@ -43,7 +43,7 @@ describe('router', () => {
     });
 
     it('should search repositories', (done) => {
-        req.body = {
+        req.query = {
             repository: 'MockRepository',
         };
         routes.searchRepository(req, res)

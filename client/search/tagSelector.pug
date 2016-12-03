@@ -1,0 +1,6 @@
+.tag-selector
+    button.btn(type="button", ng-repeat="tag in $ctrl.getSearchableTags()", ng-click="$ctrl.toggleTag(tag)", ng-class="$ctrl.getButtonClass(tag)")
+        span.fa.fa-fw.fa-check(ng-if="$ctrl.isTagIncluded(tag)")
+        span.fa.fa-fw.fa-remove(ng-if="$ctrl.isTagExcluded(tag)")
+        span.fa.fa-fw.fa-question(ng-if="!$ctrl.isTagIncluded(tag) && !$ctrl.isTagExcluded(tag)")
+        | {{tag}}

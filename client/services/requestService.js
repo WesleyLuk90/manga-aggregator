@@ -7,8 +7,8 @@ class RequestService {
         this.$http = $http;
     }
 
-    get(url) {
-        return this.$http.get(url)
+    get(url, data) {
+        return this.$http.get(url, { params: data })
             .then(res => res.data);
     }
 }

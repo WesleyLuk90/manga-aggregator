@@ -15,7 +15,7 @@ export default class RepositoryRoutes {
     }
 
     searchRepository(req, res) {
-        const repo = this.repositoryList.get(req.body.repository);
+        const repo = this.repositoryList.get(req.query.repository);
         return repo.search()
             .then((manga) => {
                 this.mangaService.loadMangas(manga);
@@ -24,7 +24,7 @@ export default class RepositoryRoutes {
     }
 
     repositoryCapabilities(req, res) {
-        const repo = this.repositoryList.get(req.body.repository);
+        const repo = this.repositoryList.get(req.query.repository);
         res.json({ capabilities: repo.getCapabilities() });
     }
 

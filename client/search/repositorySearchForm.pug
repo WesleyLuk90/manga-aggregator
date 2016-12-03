@@ -1,8 +1,10 @@
 .repository-search-form
     h3 Search {{$ctrl.repository}}
-    form.form-horizontal(ng-if="$ctrl.hasCapabilities()")
-        div(ng-repeat="field in $ctrl.getSearchableFields()")
-            label.col-xs-3
-                | {field}
+    form.form-horizontal(ng-if="$ctrl.hasCapabilities()", ng-submit="$ctrl.search()")
+        .form-group(ng-repeat="field in $ctrl.getSearchableFields()")
+            label.control-label.col-xs-3
+                | {{field.label}}
             .col-xs-4
-                input.form-control
+                input.form-control(ng-model="$ctrl.searchByField[field.label]")
+        tag-selector(tags="$ctrl.getSearchableTags()", can-exclude-tags="$ctrl.canExcludeTags()", on-selection-change="$ctrl.setTags(includedTags, excludedTags)")
+        button.btn.btn-lg.btn-primary Search

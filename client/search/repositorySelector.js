@@ -14,6 +14,7 @@ class RepositorySelectorController {
 
     setRepositories(repositories) {
         this.repositories = repositories;
+        this.selectRepository(repositories[0]);
     }
 
     getRepositories() {
