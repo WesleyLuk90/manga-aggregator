@@ -1,7 +1,9 @@
 import angular from 'angular';
 
 class <%= component_upper %>Controller {
-
+    constructor() {
+        'ngInject';
+    }
 }
 
 export default angular.module('mangaApp.<%= component_camel %>', [])

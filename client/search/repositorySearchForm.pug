@@ -1,0 +1,8 @@
+.repository-search-form
+    h3 Search {{$ctrl.repository}}
+    form.form-horizontal(ng-if="$ctrl.hasCapabilities()")
+        div(ng-repeat="field in $ctrl.getSearchableFields()")
+            label.col-xs-3
+                | {field}
+            .col-xs-4
+                input.form-control

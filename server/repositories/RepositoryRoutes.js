@@ -31,6 +31,7 @@ export default class RepositoryRoutes {
     getRouter() {
         const router = new express.Router();
         router.get('/api/repositories/list', (req, res) => this.listRepositories(req, res));
+        router.get('/api/repositories/capabilities', (req, res) => this.repositoryCapabilities(req, res));
         router.get('/api/repositories/search', (req, res) => this.searchRepository(req, res));
         return router;
     }

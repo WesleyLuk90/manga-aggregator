@@ -1,7 +1,4 @@
 .search
-    .container-fluid
-        form.form.form-horizontal
-            .form-group
-                label.control-label.col-sm-3 Name
-                .col-sm-3
-                    input.form-control
+    .default-container
+        repository-selector(repository="$ctrl.getRepository()", on-select-repository="$ctrl.selectRepository(repository)")
+        repository-search-form(repository="$ctrl.getRepository()" capabilities="$ctrl.getCapabilities()")

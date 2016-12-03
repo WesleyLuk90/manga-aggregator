@@ -1,15 +1,41 @@
 import angular from 'angular';
+import repositorySelector from './repositorySelector';
+import repositorySearchForm from './repositorySearchForm';
 
 class SearchController {
-    constructor(mangaService) {
+    constructor(repositoryService) {
         'ngInject';
 
-        mangaService.getRepositories()
-            .then(r => console.log(r));
+        this.repositoryService = repositoryService;
+
+        this.capabilities = null;
+    }
+
+    getRepository() {
+        return this.repository;
+    }
+
+    getCapabilities() {
+        return this.capabilities;
+    }
+
+    selectRepository(repository) {
+        this.repository = repository;
+        this.capabilities = null;
+        if (repository) {
+            this.repositoryService.getCapabilities(repository)
+                .then((cap) => {
+                    this.capabilities = cap;
+                });
+        }
     }
 }
 
-export default angular.module('mangaApp.search', [])
+export default angular
+    .module('mangaApp.search', [
+        repositorySelector,
+        repositorySearchForm,
+    ])
     .component('search', {
         template: require('./search.pug')(),
         controller: SearchController,

@@ -1,0 +1,3 @@
+.repository-selector
+    div(ng-repeat="repo in $ctrl.getRepositories()")
+        button.btn.btn-default(ng-class="{selected:$ctrl.isRepositorySelected(repo)}", ng-click="$ctrl.selectRepository(repo)") {{repo}}

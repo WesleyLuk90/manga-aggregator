@@ -1,4 +1,7 @@
+/* eslint-disable no-unused-vars */
+
 import angular from 'angular';
+import uiRouter from 'angular-ui-router';
 import page from './page/page';
 import home from './home/home';
 import updates from './updates/updates';
@@ -7,8 +10,7 @@ import reading from './reading/reading';
 import search from './search/search';
 import settings from './settings/settings';
 import services from './services/services';
-
-require('angular-ui-router');
+import repositories from './repositories/repositories';
 
 const app = angular
     .module('mangaApp', [
@@ -20,6 +22,7 @@ const app = angular
         search,
         settings,
         services,
+        repositories,
         'ui.router',
     ]);
 app.config(($locationProvider) => {
