@@ -1,4 +1,5 @@
 import webpackMiddleware from 'webpack-dev-middleware';
+import webpack from 'webpack';
 
 export default class WebpackMiddleware {
     constructor(configuration) {

@@ -5,7 +5,6 @@ import RepositoryList from './manga/RepositoryList';
 import Manga from './manga/Manga';
 import Connection from './db/Connection';
 import MangaEvents from './manga/MangaEvents';
-import { connectionConfigFactory } from './db/ConnectionConfig';
 import MangaResource from './manga/MangaResource';
 import SocketService from './middleware/SocketService';
 import Server from './server/Server';
@@ -19,7 +18,6 @@ export default class Module {
     create() {
         const bottle = new Bottle();
         bottle.register(RepositoryRoutes);
-        bottle.register(connectionConfigFactory);
         bottle.register(MangaService);
         bottle.register(RepositoryList);
         bottle.register(Server);

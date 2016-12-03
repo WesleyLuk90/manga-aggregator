@@ -1,6 +1,9 @@
 export default class Configuration {
     liveWebpackBuild() {
-        return false;
+        return true;
+    }
+    getConnectionString() {
+        return 'mongodb://localhost/manga_aggregator';
     }
 }
 

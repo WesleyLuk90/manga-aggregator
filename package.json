@@ -6,6 +6,9 @@
         "url": "git@github.com:WesleyLuk90/manga-aggregator.git",
         "type": "git"
     },
+    "scripts": {
+        "start": "node server/index.js"
+    },
     "author": "Wesley Luk <wesleyluk@gmail.com>",
     "license": "MIT",
     "dependencies": {
