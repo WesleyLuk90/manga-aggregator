@@ -1,4 +1,5 @@
-/* eslint-disable no-unused-vars */
+/* eslint-disable no-unused-vars, import/first */
+window.jQuery = require('jquery');
 
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
@@ -11,6 +12,7 @@ import search from './search/search';
 import settings from './settings/settings';
 import services from './services/services';
 import repositories from './repositories/repositories';
+import manga from './manga/manga';
 
 const app = angular
     .module('mangaApp', [
@@ -23,6 +25,7 @@ const app = angular
         settings,
         services,
         repositories,
+        manga,
         'ui.router',
     ]);
 app.config(($locationProvider) => {
@@ -35,4 +38,5 @@ app.run((updateService) => {
     updateService.start();
 });
 
-angular.bootstrap(document.body, ['mangaApp'], { strictDi: true });
+window.jQuery(() =>
+    angular.bootstrap(document.body, ['mangaApp'], { strictDi: true }));

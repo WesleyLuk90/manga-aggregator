@@ -3,10 +3,10 @@ import tagSelector from './tagSelector';
 
 
 class RepositorySearchFormController {
-    constructor(repositoryService) {
+    constructor(mangaService) {
         'ngInject';
 
-        this.repositoryService = repositoryService;
+        this.mangaService = mangaService;
 
         this.includedTags = [];
         this.excludedTags = [];
@@ -36,14 +36,15 @@ class RepositorySearchFormController {
     }
 
     search() {
-        this.repositoryService
+        this.mangaService
             .search({
+                repository: this.repository,
                 fields: this.searchByField,
                 includedTags: this.includedTags,
                 excludedTags: this.excludedTags,
             })
-            .then((res) => {
-                console.log(res);
+            .then((results) => {
+                this.onResults({ results });
             });
     }
 }
@@ -56,6 +57,7 @@ export default angular
         bindings: {
             repository: '<',
             capabilities: '<',
+            onResults: '&',
         },
         template: require('./repositorySearchForm.pug')(),
         controller: RepositorySearchFormController,

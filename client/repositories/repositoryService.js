@@ -1,5 +1,4 @@
 import angular from 'angular';
-import _ from 'lodash';
 
 class RepositoryService {
     constructor(requestService) {
@@ -16,19 +15,6 @@ class RepositoryService {
     getCapabilities(repository) {
         return this.requestService.get('/api/repositories/capabilities', { repository })
             .then(data => data.capabilities);
-    }
-
-    search(options) {
-        this._checkOptions(options);
-    }
-
-    _checkOptions(options) {
-        _(options)
-            .keys()
-            .pullAll(['fields', 'includedTags', 'excludedTags'])
-            .forEach((extraTag) => {
-                throw new Error(`Invalid option '${extraTag}'`);
-            });
     }
 }
 
