@@ -1,4 +1,11 @@
 .manga-card
     div.preview-image
-        img(ng-src="{{$ctrl.getPreviewImage()}}")
-    div.manga-details {{$ctrl.manga.name}}
+        a(ui-sref="manga($ctrl.manga._id)")
+            img(ng-src="{{$ctrl.getPreviewImage()}}")
+    div.manga-details
+        a.manga-title(ui-sref="manga($ctrl.manga._id)") {{$ctrl.manga.name}}
+        .manga-details__footer
+            a.add-to-favorites
+                span.fa.fa-star.fa-fw.fa-lg
+            a.add-to-reading-list
+                span.fa.fa-book.fa-fw.fa-lg
