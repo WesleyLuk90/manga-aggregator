@@ -7,7 +7,7 @@ export default class BottleFactory {
         bottle.service('configuration', class extends Configuration {
 
             getConnectionString() {
-                return 'mongodb://localhost/manga_aggregator_test';
+                return 'mongodb://localhost:27017/manga_aggregator_test';
             }
 
             liveWebpackBuild() {
