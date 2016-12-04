@@ -1,7 +1,7 @@
 import superagent from 'superagent';
 import ImageServer from './ImageServer';
 
-fdescribe('ImageServer', () => {
+describe('ImageServer', () => {
     let server;
     beforeEach((done) => {
         server = new ImageServer();
