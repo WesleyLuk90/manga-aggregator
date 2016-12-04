@@ -11,6 +11,7 @@ import Server from './server/Server';
 import WebpackMiddleware from './middleware/WebpackMiddleware';
 import Configuration from './server/Configuration';
 import MangaRoutes from './manga/MangaRoutes';
+import FileStorage from './db/FileStorage';
 
 export default class Module {
     constructor() {
@@ -30,6 +31,7 @@ export default class Module {
         bottle.register(WebpackMiddleware);
         bottle.register(Configuration);
         bottle.register(MangaRoutes);
+        bottle.register(FileStorage);
         return bottle;
     }
 }
