@@ -1,6 +1,7 @@
 import angular from 'angular';
 import repositorySelector from './repositorySelector';
 import repositorySearchForm from './repositorySearchForm';
+import mangaResultsList from './mangaResultsList';
 
 class SearchController {
     constructor(repositoryService) {
@@ -9,6 +10,7 @@ class SearchController {
         this.repositoryService = repositoryService;
 
         this.capabilities = null;
+        this.results = [1, 2, 3, 4];
     }
 
     getRepository() {
@@ -29,12 +31,21 @@ class SearchController {
                 });
         }
     }
+
+    onResults(results) {
+        this.results = results;
+    }
+
+    getResults() {
+        return this.results;
+    }
 }
 
 export default angular
     .module('mangaApp.search', [
         repositorySelector,
         repositorySearchForm,
+        mangaResultsList,
     ])
     .component('search', {
         template: require('./search.pug')(),

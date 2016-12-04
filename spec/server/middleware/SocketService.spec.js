@@ -24,8 +24,8 @@ describe('SocketService', () => {
                     socketService.emit('hello', { hello: 'world' });
                 });
                 clientSocket.on('error', e => fail(e));
-                clientSocket.on('hello', (value) => {
-                    expect(value).toEqual({ hello: 'world' });
+                clientSocket.on('event', (event) => {
+                    expect(event).toEqual({ event: 'hello', payload: { hello: 'world' } });
                     clientSocket.disconnect();
                     server.close(() => {
                         done();

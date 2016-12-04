@@ -1,4 +1,5 @@
 .search
     .default-container
         repository-selector(repository="$ctrl.getRepository()", on-select-repository="$ctrl.selectRepository(repository)")
-        repository-search-form(repository="$ctrl.getRepository()" capabilities="$ctrl.getCapabilities()")
+        repository-search-form(repository="$ctrl.getRepository()" capabilities="$ctrl.getCapabilities()" on-results="$ctrl.onResults(results)")
+        manga-results-list(results="$ctrl.getResults()")

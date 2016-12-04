@@ -13,7 +13,7 @@ export default class SocketService {
             throw new Error('Payload must be an object');
         }
         if (this.socket) {
-            this.socket.emit(event, payload);
+            this.socket.emit('event', { event, payload });
         }
     }
 }

@@ -1,0 +1,8 @@
+.manga-results-list
+    h3 Results
+    ul.manga-list
+        li.manga-list__item(ng-repeat="result in $ctrl.getResults()")
+            div.manga-loader(ng-if="!$ctrl.isLoaded(result)")
+                span.fa.fa-3x.fa-circle-o-notch.fa-spin
+            div(ng-if="$ctrl.isLoaded(result)")
+                manga-card(manga="$ctrl.getDetails(result)")

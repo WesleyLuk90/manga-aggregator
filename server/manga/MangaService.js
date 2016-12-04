@@ -15,7 +15,9 @@ export default class MangaService {
             .flatMapWithMaxConcurrent(1, mangaHandle => rx.Observable.defer(() => this.getOrLoad(mangaHandle)))
             .do((manga) => {
                 this.mangaEvents.emitLoadedManga(manga);
-            });
+            })
+            .publish()
+            .connect();
     }
 
     getOrLoad(mangaHandle) {
