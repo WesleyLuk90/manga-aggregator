@@ -33,6 +33,21 @@ describe('MangaService', () => {
             .then(done);
     });
 
+    it('should emit events with no subscribers', (done) => {
+        const search = Promise.resolve([
+            MangaHandle.fromUrl('mock://a'),
+        ]);
+
+        spyOn(repositoryList.get('MockRepository'), 'search').and.returnValue(search);
+
+        mangaEvents.emitLoadedManga.and.callFake(done);
+
+        repositoryList.get('MockRepository')
+            .search()
+            .then(mangaHandles => mangaService.loadMangas(mangaHandles))
+            .catch(fail);
+    });
+
     it('should load mangas', (done) => {
         const handles = [MangaHandle.fromUrl('mock://manga'), MangaHandle.fromUrl('mock://manga')];
         mangaService.loadMangas(handles)

@@ -11,13 +11,14 @@ export default class MangaService {
         if (!Array.isArray(mangaHandles)) {
             throw new Error('Expected an array');
         }
-        return rx.Observable.from(mangaHandles)
+        const hotObservable = rx.Observable.from(mangaHandles)
             .flatMapWithMaxConcurrent(1, mangaHandle => rx.Observable.defer(() => this.getOrLoad(mangaHandle)))
             .do((manga) => {
                 this.mangaEvents.emitLoadedManga(manga);
             })
-            .publish()
-            .connect();
+            .publish();
+        hotObservable.connect();
+        return hotObservable;
     }
 
     getOrLoad(mangaHandle) {
