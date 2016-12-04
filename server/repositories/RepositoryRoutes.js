@@ -14,15 +14,6 @@ export default class RepositoryRoutes {
         });
     }
 
-    searchRepository(req, res) {
-        const repo = this.repositoryList.get(req.query.repository);
-        return repo.search()
-            .then((manga) => {
-                this.mangaService.loadMangas(manga);
-                res.json({ manga });
-            });
-    }
-
     repositoryCapabilities(req, res) {
         const repo = this.repositoryList.get(req.query.repository);
         res.json({ capabilities: repo.getCapabilities() });
@@ -32,7 +23,6 @@ export default class RepositoryRoutes {
         const router = new express.Router();
         router.get('/api/repositories/list', (req, res) => this.listRepositories(req, res));
         router.get('/api/repositories/capabilities', (req, res) => this.repositoryCapabilities(req, res));
-        router.get('/api/repositories/search', (req, res) => this.searchRepository(req, res));
         return router;
     }
 }

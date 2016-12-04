@@ -41,18 +41,4 @@ describe('router', () => {
         expect(response.capabilities).toBeTruthy();
         expect(response.capabilities.tagOptions).toBe(null);
     });
-
-    it('should search repositories', (done) => {
-        req.query = {
-            repository: 'MockRepository',
-        };
-        routes.searchRepository(req, res)
-            .then(() => {
-                const response = getResponse();
-                expect(response.manga).toEqual([{ url: 'mock://manga' }]);
-                expect(mangaService.loadMangas).toHaveBeenCalled();
-            })
-            .catch(fail)
-            .then(done);
-    });
 });

@@ -10,6 +10,7 @@ import SocketService from './middleware/SocketService';
 import Server from './server/Server';
 import WebpackMiddleware from './middleware/WebpackMiddleware';
 import Configuration from './server/Configuration';
+import MangaRoutes from './manga/MangaRoutes';
 
 export default class Module {
     constructor() {
@@ -28,6 +29,7 @@ export default class Module {
         bottle.register(SocketService);
         bottle.register(WebpackMiddleware);
         bottle.register(Configuration);
+        bottle.register(MangaRoutes);
         return bottle;
     }
 }

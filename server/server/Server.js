@@ -6,10 +6,11 @@ import defaultRouter from '../routes/defaultRouter';
 
 
 export default class Server {
-    constructor(repositoryRoutes, socketService, webpackMiddleware) {
+    constructor(repositoryRoutes, socketService, webpackMiddleware, mangaRoutes) {
         this.repositoryRoutes = repositoryRoutes;
         this.socketService = socketService;
         this.webpackMiddleware = webpackMiddleware;
+        this.mangaRoutes = mangaRoutes;
         this.createApp();
         this.loadMiddleware();
         this.loadRoutes();
@@ -28,6 +29,7 @@ export default class Server {
 
     loadRoutes() {
         this.app.use(this.repositoryRoutes.getRouter());
+        this.app.use(this.mangaRoutes.getRouter());
         this.app.use(defaultRouter);
     }
 
@@ -41,4 +43,4 @@ export default class Server {
 }
 
 Server.$name = 'server';
-Server.$inject = ['repositoryRoutes', 'socketService', 'webpackMiddleware'];
+Server.$inject = ['repositoryRoutes', 'socketService', 'webpackMiddleware', 'mangaRoutes'];

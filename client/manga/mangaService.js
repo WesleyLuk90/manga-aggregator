@@ -10,9 +10,7 @@ class MangaService {
 
     search(options) {
         this._checkOptions(options);
-        return this.requestService.get('/api/manga/search', {
-            fields: options.fields,
-        });
+        return this.requestService.get('/api/manga/search', options);
     }
 
     _checkOptions(options) {
