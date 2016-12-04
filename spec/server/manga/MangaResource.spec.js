@@ -55,4 +55,14 @@ describe('MangaResource', () => {
             .catch(fail)
             .then(done);
     });
+
+    it('should get by id', (done) => {
+        const myMangaUrl = 'some manga url';
+        const manga = new Manga(MangaHandle.fromUrl(myMangaUrl));
+        mangaResource.create(manga)
+            .then(createdManga => mangaResource.getById(createdManga._id))
+            .then(foundManga => expect(foundManga.mangaHandle.url).toBe(myMangaUrl))
+            .catch(fail)
+            .then(done);
+    });
 });

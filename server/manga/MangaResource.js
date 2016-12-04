@@ -11,6 +11,10 @@ export default class MangaResource {
         return new this.Manga(manga)
             .save();
     }
+
+    getById(mangaId) {
+        return this.Manga.findOne({ _id: mangaId });
+    }
 }
 
 MangaResource.$name = 'mangaResource';

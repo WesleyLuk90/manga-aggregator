@@ -45,7 +45,7 @@ describe('MangaImageService', () => {
             .then(done);
     });
 
-    it('should fetch images as a stream and write them to disk', (done) => {
+    it('should fetch images as a buffer and write them to disk', (done) => {
         imageService.getPreviewImage(manga)
             .then((data) => {
                 expect(Buffer.isBuffer(data)).toBe(true);

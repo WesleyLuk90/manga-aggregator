@@ -58,4 +58,32 @@ describe('MangaService', () => {
             .catch(fail)
             .then(done);
     });
+
+    describe('getPreviewImage', () => {
+        let myManga;
+        let mangaResource;
+        let mangaImageService;
+        let imageData;
+        beforeEach(() => {
+            const Manga = bottle.container.Manga;
+            myManga = new Manga();
+            mangaResource = bottle.container.mangaResource;
+            spyOn(mangaResource, 'getById').and.returnValue(Promise.resolve(myManga));
+
+            mangaImageService = bottle.container.mangaImageService;
+            imageData = Buffer.alloc(0);
+            spyOn(mangaImageService, 'getPreviewImage').and.returnValue(Promise.resolve(imageData));
+        });
+
+        it('should get the preview image', (done) => {
+            mangaService.getPreviewImage('some id')
+                .then((returnedImage) => {
+                    expect(mangaResource.getById).toHaveBeenCalledWith('some id');
+                    expect(mangaImageService.getPreviewImage).toHaveBeenCalledWith(myManga);
+                    expect(returnedImage).toBe(imageData);
+                })
+                .catch(fail)
+                .then(done);
+        });
+    });
 });

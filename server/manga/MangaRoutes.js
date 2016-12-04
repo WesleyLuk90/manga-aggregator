@@ -15,9 +15,16 @@ export default class MangaRoutes {
             });
     }
 
+    getPreviewImage(req, res) {
+        return this.mangaService
+            .getPreviewImage(req.params.id)
+            .then(image => res.send(image));
+    }
+
     getRouter() {
         const router = new express.Router();
         router.get('/api/manga/search', (req, res) => this.search(req, res));
+        router.get('/api/manga/preview-image/:id', (req, res) => this.getPreviewImage(req, res));
         return router;
     }
 }
