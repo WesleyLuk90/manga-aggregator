@@ -5,6 +5,7 @@ export default class TestStorage {
     init(bottle) {
         this.folder = fs.mkdtempSync(`${__dirname}/temp_`);
         afterEach(() => this.dispose());
+        process.on('exit', () => this.dispose());
         if (bottle) {
             this.patch(bottle);
         }

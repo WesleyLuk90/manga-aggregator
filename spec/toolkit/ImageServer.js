@@ -2,6 +2,7 @@ import express from 'express';
 import { Server } from 'http';
 import url from 'url';
 import path from 'path';
+import fs from 'fs';
 
 
 export default class ImageServer {
@@ -21,6 +22,10 @@ export default class ImageServer {
         this.app.get('/test-page', (req, res) => {
             res.send('hello world');
         });
+    }
+
+    getTestImageData() {
+        return fs.readFileSync(path.join(__dirname, 'resources/test.png'));
     }
 
     start() {
