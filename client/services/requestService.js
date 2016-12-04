@@ -8,7 +8,11 @@ class RequestService {
     }
 
     get(url, data) {
-        return this.$http.get(url, { params: data })
+        return this.$http
+            .get(url, {
+                params: data,
+                paramSerializer: '$httpParamSerializerJQLike',
+            })
             .then(res => res.data);
     }
 }

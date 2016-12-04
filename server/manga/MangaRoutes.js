@@ -1,3 +1,4 @@
+import { Filters, Fields } from 'manga-api';
 import express from 'express';
 
 export default class MangaRoutes {
@@ -6,9 +7,26 @@ export default class MangaRoutes {
         this.repositoryList = repositoryList;
     }
 
+    buildFilters(query) {
+        const filters = new Filters()
+            .setIncludedTags(query.includedTags || [])
+            .setExcludedTags(query.excludedTags || []);
+        const searchFields = query.searchFields || {};
+        Object.keys(searchFields)
+            .forEach((field) => {
+                filters.setSearchField(Fields.getField(field), searchFields[field]);
+            });
+
+        return filters;
+    }
+
     search(req, res) {
+        console.log(req.query);
         const repo = this.repositoryList.get(req.query.repository);
-        return repo.search()
+
+        const filters = this.buildFilters(req.query);
+
+        return repo.search(filters)
             .then((manga) => {
                 this.mangaService.loadMangas(manga);
                 res.json({ manga });

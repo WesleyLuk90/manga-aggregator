@@ -20,7 +20,7 @@ class MangaService {
         }
         _(options)
             .keys()
-            .pullAll(['fields', 'includedTags', 'excludedTags', 'repository'])
+            .pullAll(['searchFields', 'includedTags', 'excludedTags', 'repository'])
             .forEach((extraTag) => {
                 throw new Error(`Invalid option '${extraTag}'`);
             });

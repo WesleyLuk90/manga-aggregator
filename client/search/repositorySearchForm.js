@@ -39,7 +39,7 @@ class RepositorySearchFormController {
         this.mangaService
             .search({
                 repository: this.repository,
-                fields: this.searchByField,
+                searchFields: this.searchByField,
                 includedTags: this.includedTags,
                 excludedTags: this.excludedTags,
             })
