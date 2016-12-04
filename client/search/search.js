@@ -10,7 +10,7 @@ class SearchController {
         this.repositoryService = repositoryService;
 
         this.capabilities = null;
-        this.results = [1, 2, 3, 4];
+        this.results = null;
     }
 
     getRepository() {

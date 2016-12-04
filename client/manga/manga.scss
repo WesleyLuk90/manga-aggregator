@@ -16,6 +16,12 @@
     width: 100px;
     height: 130px;
     background-color: #444;
+    text-align: center;
+
+    img {
+        max-width: 100px;
+        max-height: 130px;
+    }
 }
 
 .manga-details {

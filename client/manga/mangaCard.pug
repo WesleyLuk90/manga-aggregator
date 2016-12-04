@@ -1,3 +1,4 @@
 .manga-card
     div.preview-image
+        img(ng-src="{{$ctrl.getPreviewImage()}}")
     div.manga-details {{$ctrl.manga.name}}

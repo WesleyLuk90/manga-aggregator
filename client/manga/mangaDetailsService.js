@@ -22,6 +22,10 @@ class MangaDetailsService {
     getDetails(mangaHandle) {
         return this.detailsByHandle.get(mangaHandle.url);
     }
+
+    getPreviewImageUrl(manga) {
+        return `/api/manga/preview-image/${manga._id}`;
+    }
 }
 
 export default angular.module('mangaApp.mangaDetailsService', [])

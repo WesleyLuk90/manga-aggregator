@@ -1,8 +1,15 @@
 import angular from 'angular';
 
 class MangaCardController {
-    constructor() {
+    constructor(mangaDetailsService) {
         'ngInject';
+
+        this.mangaDetailsService = mangaDetailsService;
+    }
+
+    getPreviewImage() {
+        return this.mangaDetailsService
+            .getPreviewImageUrl(this.manga);
     }
 }
 
