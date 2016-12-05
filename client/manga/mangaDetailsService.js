@@ -9,6 +9,14 @@ class MangaDetailsService {
         });
 
         this.detailsByHandle = new Map();
+        this.detailsById = new Map();
+    }
+
+    isMangaIdLoaded(id) {
+        if (typeof id !== 'string') {
+            throw new Error('Expected a string');
+        }
+        return this.detailsById.has(id);
     }
 
     isLoaded(mangaHandle) {
@@ -17,10 +25,15 @@ class MangaDetailsService {
 
     addManga(manga) {
         this.detailsByHandle.set(manga.mangaHandle.url, manga);
+        this.detailsById.set(manga._id, manga);
     }
 
     getDetails(mangaHandle) {
         return this.detailsByHandle.get(mangaHandle.url);
+    }
+
+    getDetailsById(mangaId) {
+        return this.detailsById.get(mangaId);
     }
 
     getPreviewImageUrl(manga) {
