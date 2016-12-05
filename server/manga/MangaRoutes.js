@@ -21,7 +21,6 @@ export default class MangaRoutes {
     }
 
     search(req, res) {
-        console.log(req.query);
         const repo = this.repositoryList.get(req.query.repository);
 
         const filters = this.buildFilters(req.query);

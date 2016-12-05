@@ -1,7 +1,7 @@
 import { RepositoryListFactory, Fields } from 'manga-api';
 import MangaRoutes from '../../../server/manga/MangaRoutes';
 
-fdescribe('MangaRoutes', () => {
+describe('MangaRoutes', () => {
     let routes;
     let res;
     let req;
