@@ -14,6 +14,14 @@ class MangaService {
             .then(data => data.manga);
     }
 
+    requestMangaUpdate(mangaId) {
+        if (typeof mangaId !== 'string') {
+            throw new Error('Expected a string');
+        }
+
+        return this.requestService.post('/api/manga/request-update', { mangaId });
+    }
+
     _checkOptions(options) {
         if (typeof options.repository !== 'string') {
             throw new Error('Requires option \'repository\'');

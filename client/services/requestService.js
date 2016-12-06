@@ -15,6 +15,11 @@ class RequestService {
             })
             .then(res => res.data);
     }
+
+    post(url, data) {
+        return this.$http.post(url, { data })
+            .then(res => res.data);
+    }
 }
 
 export default angular.module('mangaApp.requestService', [])
