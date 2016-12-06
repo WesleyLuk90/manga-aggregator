@@ -1,11 +1,13 @@
 import { MangaHandle } from 'manga-api';
 import BottleFactory from '../BottleFactory';
+import { LoadMangaJob } from '../../../server/job/LoadMangaJobFactory';
 
 describe('MangaService', () => {
     let mangaService;
     let mangaEvents;
     let bottle;
     let repositoryList;
+    let executorService;
 
     beforeEach(() => {
         bottle = BottleFactory.create();
@@ -13,6 +15,7 @@ describe('MangaService', () => {
         bottle.constant('mangaEvents', mangaEvents);
         mangaService = bottle.container.mangaService;
         repositoryList = bottle.container.repositoryList;
+        executorService = bottle.container.executorService;
     });
 
     it('should load manga and emit events', (done) => {
@@ -57,6 +60,16 @@ describe('MangaService', () => {
             })
             .catch(fail)
             .then(done);
+    });
+
+    it('should load manga by id', () => {
+        const submitSpy = spyOn(executorService, 'submit');
+        mangaService.loadMangaById('some-id');
+
+        expect(submitSpy).toHaveBeenCalled();
+        const job = submitSpy.calls.first().args[0];
+        expect(job instanceof LoadMangaJob).toBe(true);
+        expect(job.getMangaId()).toBe('some-id');
     });
 
     describe('getPreviewImage', () => {

@@ -38,10 +38,16 @@ export default class MangaRoutes {
             .then(image => res.send(image));
     }
 
+    requestMangaUpdate(req, res) {
+        this.mangaService.loadMangaById(req.body.mangaId);
+        res.json({});
+    }
+
     getRouter() {
         const router = new express.Router();
         router.get('/api/manga/search', (req, res) => this.search(req, res));
         router.get('/api/manga/preview-image/:id', (req, res) => this.getPreviewImage(req, res));
+        router.get('/api/manga/request-update', (req, res) => this.requestMangaUpdate(req, res));
         return router;
     }
 }

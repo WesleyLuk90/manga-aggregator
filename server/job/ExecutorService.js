@@ -1,6 +1,6 @@
 import Job from './Job';
 
-export default class Executor {
+export default class ExecutorService {
     start() {
         this.started = true;
     }
@@ -18,5 +18,5 @@ export default class Executor {
     }
 }
 
-Executor.$name = 'executor';
-Executor.$inject = [];
+ExecutorService.$name = 'executorService';
+ExecutorService.$inject = [];

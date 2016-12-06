@@ -17,7 +17,7 @@ describe('MangaRoutes', () => {
     beforeEach(() => {
         req = { query: {} };
         res = jasmine.createSpyObj('response', ['json', 'send']);
-        mangaService = jasmine.createSpyObj('mangaService', ['loadMangas', 'getPreviewImage']);
+        mangaService = jasmine.createSpyObj('mangaService', ['loadMangas', 'getPreviewImage', 'loadMangaById']);
         const repositoryList = RepositoryListFactory.create();
         mockRepository = repositoryList.get('MockRepository');
         routes = new MangaRoutes(mangaService, repositoryList);
@@ -60,5 +60,14 @@ describe('MangaRoutes', () => {
             })
             .catch(fail)
             .then(done);
+    });
+
+    it('should request manga updates', () => {
+        req.body = {
+            mangaId: 'some-id',
+        };
+        routes.requestMangaUpdate(req, res);
+        expect(res.json).toHaveBeenCalledWith({});
+        expect(mangaService.loadMangaById).toHaveBeenCalledWith('some-id');
     });
 });

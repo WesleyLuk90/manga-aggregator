@@ -1,7 +1,7 @@
-import Executor from '../../../server/job/Executor';
+import ExecutorService from '../../../server/job/ExecutorService';
 import Job from '../../../server/job/Job';
 
-describe('Executor', () => {
+describe('ExecutorService', () => {
     let executor;
 
     class TestJob extends Job {
@@ -9,7 +9,7 @@ describe('Executor', () => {
     }
 
     beforeEach(() => {
-        executor = new Executor();
+        executor = new ExecutorService();
     });
 
     it('should not accept jobs before start', () => {
