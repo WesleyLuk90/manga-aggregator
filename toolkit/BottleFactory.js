@@ -1,5 +1,5 @@
-import Module from '../../server/Module';
-import Configuration from '../../server/server/Configuration';
+import Module from '../server/Module';
+import Configuration from '../server/server/Configuration';
 
 export default class BottleFactory {
     static create() {

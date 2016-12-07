@@ -1,5 +1,5 @@
 import { MangaHandle } from 'manga-api';
-import BottleFactory from '../BottleFactory';
+import BottleFactory from '../../../toolkit/BottleFactory';
 import { LoadMangaJob } from '../../../server/job/LoadMangaJobFactory';
 
 describe('MangaService', () => {
@@ -60,16 +60,6 @@ describe('MangaService', () => {
             })
             .catch(fail)
             .then(done);
-    });
-
-    it('should load manga by id', () => {
-        const submitSpy = spyOn(executorService, 'submit');
-        mangaService.loadMangaById('some-id');
-
-        expect(submitSpy).toHaveBeenCalled();
-        const job = submitSpy.calls.first().args[0];
-        expect(job instanceof LoadMangaJob).toBe(true);
-        expect(job.getMangaId()).toBe('some-id');
     });
 
     describe('getPreviewImage', () => {

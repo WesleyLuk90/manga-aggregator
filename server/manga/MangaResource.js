@@ -12,6 +12,10 @@ export default class MangaResource {
             .save();
     }
 
+    upsert(manga) {
+        return this.Manga.findOneAndUpdate({ 'mangaHandle.url': manga.mangaHandle.url }, manga, { new: true, upsert: true });
+    }
+
     getById(mangaId) {
         return this.Manga.findOne({ _id: mangaId });
     }

@@ -61,7 +61,7 @@ export default class MangaImageService {
         return superagent.get(url)
             .buffer()
             .then((response) => {
-                if (!response.type.match('image/(png|jpeg)')) {
+                if (!response.type.match('image/(png|jpeg|gif)')) {
                     throw new Error(`Unexpected response type ${response.type}`);
                 }
                 return response.body;

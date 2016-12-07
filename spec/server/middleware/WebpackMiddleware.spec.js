@@ -1,4 +1,4 @@
-import BottleFactory from '../BottleFactory';
+import BottleFactory from '../../../toolkit/BottleFactory';
 
 describe('WebpackMiddleware', () => {
     let bottle;

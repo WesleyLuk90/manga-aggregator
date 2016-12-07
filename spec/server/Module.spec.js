@@ -1,4 +1,4 @@
-import BottleFactory from './BottleFactory';
+import BottleFactory from '../../toolkit/BottleFactory';
 
 describe('Module', () => {
     it('should load dependencies', () => {

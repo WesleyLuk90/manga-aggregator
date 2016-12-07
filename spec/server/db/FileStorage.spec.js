@@ -1,6 +1,6 @@
 import fs from 'fs';
-import BottleFactory from '../BottleFactory';
-import TestStorage from '../../toolkit/TestStorage';
+import BottleFactory from '../../../toolkit/BottleFactory';
+import TestStorage from '../../../toolkit/TestStorage';
 
 describe('FileStorage', () => {
     let fileStorage;

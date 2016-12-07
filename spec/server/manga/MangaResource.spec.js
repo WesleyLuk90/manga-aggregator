@@ -1,5 +1,5 @@
 import { Manga, MangaHandle, ChapterHandle } from 'manga-api';
-import BottleFactory from '../BottleFactory';
+import BottleFactory from '../../../toolkit/BottleFactory';
 
 describe('MangaResource', () => {
     let bottle;
@@ -52,6 +52,20 @@ describe('MangaResource', () => {
     it('should not find non-existant manga', (done) => {
         mangaResource.getByHandle(MangaHandle.fromUrl('doesntexist'))
             .then(foundManga => expect(foundManga).toBeNull())
+            .catch(fail)
+            .then(done);
+    });
+
+    fit('should upsert manga', (done) => {
+        const manga = new Manga(MangaHandle.fromUrl('some-manga-url'));
+
+        mangaResource.create(manga)
+            .then(createdManga =>
+                mangaResource
+                .upsert(manga)
+                .then(secondManga =>
+                    expect(secondManga._id).toEqual(createdManga._id))
+            )
             .catch(fail)
             .then(done);
     });

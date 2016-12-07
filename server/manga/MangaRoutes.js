@@ -2,9 +2,10 @@ import { Filters, Fields } from 'manga-api';
 import express from 'express';
 
 export default class MangaRoutes {
-    constructor(mangaService, repositoryList) {
+    constructor(mangaService, repositoryList, mangaJobService) {
         this.mangaService = mangaService;
         this.repositoryList = repositoryList;
+        this.mangaJobService = mangaJobService;
     }
 
     buildFilters(query) {
@@ -39,7 +40,7 @@ export default class MangaRoutes {
     }
 
     requestMangaUpdate(req, res) {
-        this.mangaService.loadMangaById(req.body.mangaId);
+        this.mangaJobService.loadMangaById(req.body.mangaId);
         res.json({});
     }
 
@@ -53,4 +54,4 @@ export default class MangaRoutes {
 }
 
 MangaRoutes.$name = 'mangaRoutes';
-MangaRoutes.$inject = ['mangaService', 'repositoryList'];
+MangaRoutes.$inject = ['mangaService', 'repositoryList', 'mangaJobService'];

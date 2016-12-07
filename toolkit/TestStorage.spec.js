@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 
 import TestStorage from './TestStorage';
-import BottleFactory from '../server/BottleFactory';
+import BottleFactory from './BottleFactory';
 
 describe('TestStorage', () => {
     let storage;

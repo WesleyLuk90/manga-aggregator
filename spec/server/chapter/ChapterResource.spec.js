@@ -1,5 +1,5 @@
 import { ChapterHandle, Chapter } from 'manga-api';
-import BottleFactory from '../BottleFactory';
+import BottleFactory from '../../../toolkit/BottleFactory';
 
 describe('ChapterResource', () => {
     let chapterResource;
@@ -33,6 +33,23 @@ describe('ChapterResource', () => {
                     expect(page.url).toBe('mock://page');
                 });
             })
+            .catch(fail)
+            .then(done);
+    });
+
+    it('should get chapters', (done) => {
+        const chapterHandle = ChapterHandle.fromUrl('mock://chapter');
+        const chapter = new Chapter(chapterHandle);
+        chapterResource.create(chapter)
+            .then(createdChapter => chapterResource.getById(createdChapter._id))
+            .then(foundChapter => expect(foundChapter).toBeTruthy())
+            .catch(fail)
+            .then(done);
+    });
+
+    it('should not get non-existant chapters', (done) => {
+        chapterResource.getById('aaaaaaaaaaaaaaaaaaaaaaaa')
+            .then(chapter => expect(chapter).toBeNull())
             .catch(fail)
             .then(done);
     });

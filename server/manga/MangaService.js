@@ -1,13 +1,11 @@
 import rx from 'rx';
 
 export default class MangaService {
-    constructor(repositoryList, mangaResource, mangaEvents, mangaImageService, executorService, loadMangaJobFactory) {
+    constructor(repositoryList, mangaResource, mangaEvents, mangaImageService) {
         this.repositoryList = repositoryList;
         this.mangaResource = mangaResource;
         this.mangaEvents = mangaEvents;
         this.mangaImageService = mangaImageService;
-        this.executorService = executorService;
-        this.loadMangaJobFactory = loadMangaJobFactory;
     }
 
     loadMangas(mangaHandles) {
@@ -28,13 +26,17 @@ export default class MangaService {
         return this.mangaResource.getByHandle(mangaHandle)
             .then((manga) => {
                 if (!manga) {
-                    return this.repositoryList
-                        .getRepositoryForHandle(mangaHandle)
-                        .getManga(mangaHandle)
-                        .then(mangaData => this.mangaResource.create(mangaData));
+                    return this.loadManga(mangaHandle);
                 }
                 return manga;
             });
+    }
+
+    loadManga(mangaHandle) {
+        return this.repositoryList
+            .getRepositoryForHandle(mangaHandle)
+            .getManga(mangaHandle)
+            .then(mangaData => this.mangaResource.create(mangaData));
     }
 
     getPreviewImage(id) {
@@ -42,12 +44,8 @@ export default class MangaService {
             .getById(id)
             .then(manga => this.mangaImageService.getPreviewImage(manga));
     }
-
-    loadMangaById(mangaId) {
-        this.executorService.submit(this.loadMangaJobFactory.create(mangaId));
-    }
 }
 
 
 MangaService.$name = 'mangaService';
-MangaService.$inject = ['repositoryList', 'mangaResource', 'mangaEvents', 'mangaImageService', 'executorService', 'loadMangaJobFactory'];
+MangaService.$inject = ['repositoryList', 'mangaResource', 'mangaEvents', 'mangaImageService'];

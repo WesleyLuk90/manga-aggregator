@@ -1,3 +1,5 @@
+import { Types } from 'mongoose';
+
 export default class ChapterResource {
     constructor(Chapter) {
         this.Chapter = Chapter;
@@ -6,6 +8,13 @@ export default class ChapterResource {
     create(chapter) {
         return new this.Chapter(chapter)
             .save();
+    }
+
+    getById(chapterId) {
+        if (typeof chapterId !== 'string' && !(chapterId instanceof Types.ObjectId)) {
+            throw new Error('Expected a string');
+        }
+        return this.Chapter.findOne({ _id: chapterId });
     }
 }
 

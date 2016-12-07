@@ -3,9 +3,9 @@ import path from 'path';
 import fs from 'fs';
 import superagent from 'superagent';
 
-import BottleFactory from '../BottleFactory';
-import TestStorage from '../../toolkit/TestStorage';
-import ImageServer from '../../toolkit/ImageServer';
+import BottleFactory from '../../../toolkit/BottleFactory';
+import TestStorage from '../../../toolkit/TestStorage';
+import ImageServer from '../../../toolkit/ImageServer';
 
 describe('MangaImageService', () => {
     let bottle;
