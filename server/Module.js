@@ -17,6 +17,8 @@ import MangaPaths from './manga/MangaPaths';
 import BodyParserMiddleware from './middleware/BodyParserMiddleware';
 import ExecutorService from './job/ExecutorService';
 import LoadMangaJobFactory from './job/LoadMangaJobFactory';
+import MangaJobService from './manga/MangaJobService';
+import ChapterModule from './chapter/ChapterModule';
 
 export default class Module {
     constructor() {
@@ -42,6 +44,8 @@ export default class Module {
         bottle.register(BodyParserMiddleware);
         bottle.register(ExecutorService);
         bottle.register(LoadMangaJobFactory);
+        bottle.register(MangaJobService);
+        ChapterModule.register(bottle);
         return bottle;
     }
 }
