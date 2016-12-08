@@ -56,7 +56,7 @@ describe('MangaResource', () => {
             .then(done);
     });
 
-    fit('should upsert manga', (done) => {
+    it('should upsert manga', (done) => {
         const manga = new Manga(MangaHandle.fromUrl('some-manga-url'));
 
         mangaResource.create(manga)
@@ -64,7 +64,7 @@ describe('MangaResource', () => {
                 mangaResource
                 .upsert(manga)
                 .then(secondManga =>
-                    expect(secondManga._id).toEqual(createdManga._id))
+                    expect(secondManga._id).toEqual(createdManga._id)),
             )
             .catch(fail)
             .then(done);
