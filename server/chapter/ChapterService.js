@@ -10,7 +10,7 @@ export default class ChapterService {
         const repository = this.repositoryList.getRepositoryForHandle(handle);
 
         return repository.getChapter(handle)
-            .then(chapter => this.chapterResource.create(chapter));
+            .then(chapter => this.chapterResource.upsert(chapter));
     }
 
     toHandle(chapterHandle) {

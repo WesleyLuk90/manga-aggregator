@@ -5,9 +5,8 @@ export default class ChapterResource {
         this.Chapter = Chapter;
     }
 
-    create(chapter) {
-        return new this.Chapter(chapter)
-            .save();
+    upsert(chapter) {
+        return this.Chapter.findOneAndUpdate({ 'chapterHandle.url': chapter.chapterHandle.url }, chapter, { new: true, upsert: true });
     }
 
     getById(chapterId) {

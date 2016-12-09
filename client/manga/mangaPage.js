@@ -16,11 +16,15 @@ class MangaPageController {
     isMangaLoaded() {
         return this.mangaDetailsService.isMangaIdLoaded(this.$stateParams.mangaId);
     }
+
+    getManga() {
+        return this.mangaDetailsService.getDetailsById(this.$stateParams.mangaId);
+    }
 }
 
 export default angular.module('mangaApp.mangaPage', [])
     .component('mangaPage', {
-        template: require('./manga.pug')(),
+        template: require('./mangaPage.pug')(),
         controller: MangaPageController,
     })
     .config(($stateProvider) => {

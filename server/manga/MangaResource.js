@@ -7,11 +7,6 @@ export default class MangaResource {
         return this.Manga.findOne({ 'mangaHandle.url': mangaHandle.url });
     }
 
-    create(manga) {
-        return new this.Manga(manga)
-            .save();
-    }
-
     upsert(manga) {
         return this.Manga.findOneAndUpdate({ 'mangaHandle.url': manga.mangaHandle.url }, manga, { new: true, upsert: true });
     }

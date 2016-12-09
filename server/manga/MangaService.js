@@ -39,7 +39,7 @@ export default class MangaService {
         return this.repositoryList
             .getRepositoryForHandle(handle)
             .getManga(handle)
-            .then(mangaData => this.mangaResource.create(mangaData));
+            .then(mangaData => this.mangaResource.upsert(mangaData));
     }
 
     toHandle(mangaHandle) {

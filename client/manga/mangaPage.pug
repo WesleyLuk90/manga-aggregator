@@ -1,1 +1,9 @@
 .manga-page
+    .default-container
+        div(ng-if="!$ctrl.hasManga()")
+            p Select a manga
+        div(ng-if="$ctrl.hasManga()")
+            div(ng-if="!$ctrl.isMangaLoaded()")
+                p Loading
+            div(ng-if="$ctrl.isMangaLoaded()")
+                manga-info(manga="$ctrl.getManga()")

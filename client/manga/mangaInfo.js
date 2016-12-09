@@ -1,18 +1,8 @@
 import angular from 'angular';
 
 class MangaInfoController {
-    constructor(mangaService) {
+    constructor() {
         'ngInject';
-
-        this.mangaService = mangaService;
-    }
-
-    $onChanges(changes) {
-        const mangaChanges = changes.manga;
-        if (mangaChanges.currentValue && mangaChanges.currentValue !== mangaChanges.previousValue) {
-            const mangaId = mangaChanges.currentValue._id;
-            this.mangaService.requestMangaUpdate(mangaId);
-        }
     }
 }
 

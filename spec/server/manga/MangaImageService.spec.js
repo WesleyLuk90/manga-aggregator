@@ -29,7 +29,7 @@ describe('MangaImageService', () => {
                     .setName('some manga')
                     .setPreviewImageUrl(imageServer.makeUrl('test.png'));
                 return mangaResource
-                    .create(mangaData)
+                    .upsert(mangaData)
                     .then((createdManga) => {
                         manga = createdManga;
                         downloadPath = `manga/${manga.name}-${manga._id}/preview-image.png`;

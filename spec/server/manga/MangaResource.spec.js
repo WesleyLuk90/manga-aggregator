@@ -29,7 +29,7 @@ describe('MangaResource', () => {
             ])
             .setPreviewImageUrl('some url');
 
-        mangaResource.create(manga)
+        mangaResource.upsert(manga)
             .then((mangaModel) => {
                 expect(mangaModel._id).toBeTruthy();
 
@@ -64,7 +64,7 @@ describe('MangaResource', () => {
     it('should upsert manga', (done) => {
         const manga = new Manga(MangaHandle.fromUrl('some-manga-url'));
 
-        mangaResource.create(manga)
+        mangaResource.upsert(manga)
             .then(createdManga =>
                 mangaResource
                 .upsert(manga)
@@ -78,7 +78,7 @@ describe('MangaResource', () => {
     it('should get by id', (done) => {
         const myMangaUrl = 'some manga url';
         const manga = new Manga(MangaHandle.fromUrl(myMangaUrl));
-        mangaResource.create(manga)
+        mangaResource.upsert(manga)
             .then(createdManga => mangaResource.getById(createdManga._id))
             .then(foundManga => expect(foundManga.mangaHandle.url).toBe(myMangaUrl))
             .catch(fail)

@@ -20,7 +20,7 @@ describe('ChapterResource', () => {
                 { url: 'mock://page' },
             ]);
 
-        chapterResource.create(chapter)
+        chapterResource.upsert(chapter)
             .then((createdChapter) => {
                 const chapterObj = createdChapter.toObject();
                 expect(chapterObj._id).toBeTruthy();
@@ -37,10 +37,19 @@ describe('ChapterResource', () => {
             .then(done);
     });
 
+    it('should not make duplicate chapters', (done) => {
+        const chapter = new Chapter(ChapterHandle.fromUrl('mock://chapter'));
+        chapterResource.upsert(chapter)
+            .then(firstChapter => chapterResource.upsert(chapter)
+                .then(secondChapter => expect(firstChapter._id).toEqual(secondChapter._id)))
+            .catch(fail)
+            .then(done);
+    });
+
     it('should get chapters', (done) => {
         const chapterHandle = ChapterHandle.fromUrl('mock://chapter');
         const chapter = new Chapter(chapterHandle);
-        chapterResource.create(chapter)
+        chapterResource.upsert(chapter)
             .then(createdChapter => chapterResource.getById(createdChapter._id))
             .then(foundChapter => expect(foundChapter).toBeTruthy())
             .catch(fail)
