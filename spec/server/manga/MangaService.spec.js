@@ -86,4 +86,11 @@ describe('MangaService', () => {
                 .then(done);
         });
     });
+
+    it('should load manga', (done) => {
+        const mangaHandle = { url: 'mock://manga' };
+        mangaService.loadManga(mangaHandle)
+            .catch(fail)
+            .then(done);
+    });
 });

@@ -5,7 +5,8 @@ export default class MangaJobService {
     }
 
     loadMangaById(mangaId) {
-        this.executorService.submit(this.loadMangaJobFactory.create(mangaId));
+        this.executorService.submit(this.loadMangaJobFactory.create(mangaId))
+            .catch(e => console.error(e));
     }
 }
 

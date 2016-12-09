@@ -1,4 +1,5 @@
 import rx from 'rx';
+import { MangaHandle } from 'manga-api';
 
 export default class MangaService {
     constructor(repositoryList, mangaResource, mangaEvents, mangaImageService) {
@@ -34,10 +35,18 @@ export default class MangaService {
     }
 
     loadManga(mangaHandle) {
+        const handle = this.toHandle(mangaHandle);
         return this.repositoryList
-            .getRepositoryForHandle(mangaHandle)
-            .getManga(mangaHandle)
+            .getRepositoryForHandle(handle)
+            .getManga(handle)
             .then(mangaData => this.mangaResource.create(mangaData));
+    }
+
+    toHandle(mangaHandle) {
+        if (!(mangaHandle instanceof MangaHandle) && mangaHandle.url) {
+            return MangaHandle.fromUrl(mangaHandle.url);
+        }
+        return mangaHandle;
     }
 
     getPreviewImage(id) {

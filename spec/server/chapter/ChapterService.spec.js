@@ -24,4 +24,11 @@ describe('ChapterService', () => {
             .catch(fail)
             .then(done);
     });
+
+    it('should load a chapter handle like object', (done) => {
+        const handle = { url: 'mock://chapter' };
+        chapterService.loadChapter(handle)
+            .catch(fail)
+            .then(done);
+    });
 });

@@ -17,7 +17,7 @@ class RequestService {
     }
 
     post(url, data) {
-        return this.$http.post(url, { data })
+        return this.$http.post(url, data)
             .then(res => res.data);
     }
 }

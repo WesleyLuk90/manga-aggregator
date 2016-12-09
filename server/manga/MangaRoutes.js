@@ -1,8 +1,10 @@
 import { Filters, Fields } from 'manga-api';
 import express from 'express';
+import BaseRouter from '../routes/BaseRouter';
 
-export default class MangaRoutes {
+export default class MangaRoutes extends BaseRouter {
     constructor(mangaService, repositoryList, mangaJobService) {
+        super();
         this.mangaService = mangaService;
         this.repositoryList = repositoryList;
         this.mangaJobService = mangaJobService;
@@ -30,13 +32,15 @@ export default class MangaRoutes {
             .then((manga) => {
                 this.mangaService.loadMangas(manga);
                 res.json({ manga });
-            });
+            })
+            .catch(this.createErrorHandler(res));
     }
 
     getPreviewImage(req, res) {
         return this.mangaService
             .getPreviewImage(req.params.id)
-            .then(image => res.send(image));
+            .then(image => res.send(image))
+            .catch(this.createErrorHandler(res));
     }
 
     requestMangaUpdate(req, res) {
@@ -48,7 +52,7 @@ export default class MangaRoutes {
         const router = new express.Router();
         router.get('/api/manga/search', (req, res) => this.search(req, res));
         router.get('/api/manga/preview-image/:id', (req, res) => this.getPreviewImage(req, res));
-        router.get('/api/manga/request-update', (req, res) => this.requestMangaUpdate(req, res));
+        router.post('/api/manga/request-update', (req, res) => this.requestMangaUpdate(req, res));
         return router;
     }
 }

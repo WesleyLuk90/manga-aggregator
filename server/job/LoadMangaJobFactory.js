@@ -54,7 +54,7 @@ export default class LoadMangaJobFactory {
 
     create(mangaId) {
         if (typeof mangaId !== 'string') {
-            throw new Error('Expected a string');
+            throw new Error(`Expected a string but got ${mangaId}`);
         }
         return new LoadMangaJob(mangaId, this.mangaResource, this.mangaService, this.chapterService, this.chapterEvents, this.mangaEvents);
     }

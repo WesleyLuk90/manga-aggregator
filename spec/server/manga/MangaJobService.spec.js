@@ -16,7 +16,7 @@ describe('MangaJobService', () => {
     });
 
     it('should load manga by id', () => {
-        const submitSpy = spyOn(executorService, 'submit');
+        const submitSpy = spyOn(executorService, 'submit').and.returnValue(Promise.resolve());
         mangaJobService.loadMangaById('some-id');
 
         expect(submitSpy).toHaveBeenCalled();
