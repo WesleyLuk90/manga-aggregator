@@ -1,12 +1,17 @@
 import { Manga, MangaHandle, ChapterHandle } from 'manga-api';
 import BottleFactory from '../../../toolkit/BottleFactory';
+import DatabaseReset from '../../../toolkit/DatabaseReset';
 
 describe('MangaResource', () => {
     let bottle;
     let mangaResource;
-    beforeEach(() => {
+    beforeEach((done) => {
         bottle = BottleFactory.create();
         mangaResource = bottle.container.mangaResource;
+
+        DatabaseReset.reset()
+            .catch(fail)
+            .then(done);
     });
     it('should create manga', (done) => {
         const manga = new Manga(MangaHandle.fromUrl('abc'))

@@ -1,14 +1,15 @@
 export default class ChapterService {
-    constructor(repositoryList) {
+    constructor(repositoryList, chapterResource) {
         this.repositoryList = repositoryList;
+        this.chapterResource = chapterResource;
     }
-    load(chapterHandle) {
-        const repository = this.repositoryList.getByHandle(chapterHandle);
+    loadChapter(chapterHandle) {
+        const repository = this.repositoryList.getRepositoryForHandle(chapterHandle);
 
-        return repository.loadChapter(chapterHandle)
+        return repository.getChapter(chapterHandle)
             .then(chapter => this.chapterResource.create(chapter));
     }
 }
 
 ChapterService.$name = 'chapterService';
-ChapterService.$inject = ['repositoryList'];
+ChapterService.$inject = ['repositoryList', 'chapterResource'];

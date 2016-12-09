@@ -4,7 +4,7 @@ export default class MangaEvents {
         this.socketService = socketService;
     }
 
-    emitLoadedManga(manga) {
+    emitManga(manga) {
         this.socketService.emit('manga', manga.toObject());
     }
 }

@@ -29,4 +29,16 @@ describe('ExecutorService', () => {
     it('should not accept non jobs', () => {
         expect(() => executor.submit({})).toThrowError(/Expected a Job/);
     });
+
+    it('should execute jobs', (done) => {
+        const job = new TestJob();
+        spyOn(job, 'run');
+        executor.start();
+        executor.submit(job)
+            .then(() => {
+                expect(job.run).toHaveBeenCalled();
+            })
+            .catch(fail)
+            .then(done);
+    });
 });

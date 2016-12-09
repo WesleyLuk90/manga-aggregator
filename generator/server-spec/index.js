@@ -19,7 +19,7 @@ class Generator extends generators.Base {
         }
 
         const jsPath = path.join('spec/server/', `${namespace}.spec.js`);
-        const bottlePath = path.join('spec/server/BottleFactory.js');
+        const bottlePath = path.join('toolkit/BottleFactory.js');
 
         const data = {
             component_kebab: _.kebabCase(componentName),

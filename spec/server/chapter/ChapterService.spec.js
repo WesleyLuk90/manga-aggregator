@@ -13,13 +13,13 @@ describe('ChapterService', () => {
 
     it('should load a chapter', (done) => {
         const handle = ChapterHandle.fromUrl('mock://chapter');
-        chapterService.load(handle)
+        chapterService.loadChapter(handle)
             .then((chapter) => {
-                expect(chapter.mangaHandle.url).toBe('mock://chapter');
+                expect(chapter.chapterHandle.url).toBe('mock://chapter');
                 return chapterResource.getById(chapter._id);
             })
             .then((chapter) => {
-                expect(chapter.mangaHandle.url).toBe('mock://chapter');
+                expect(chapter.chapterHandle.url).toBe('mock://chapter');
             })
             .catch(fail)
             .then(done);
