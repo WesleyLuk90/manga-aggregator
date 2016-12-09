@@ -1,7 +1,9 @@
 require('babel-register');
 
 const Module = require('./Module').default;
-
-const server = new Module().create().container.server;
-
+const myModule = new Module().create();
+const server = myModule.container.server;
 server.start();
+
+const executorService = myModule.container.executorService;
+executorService.start();

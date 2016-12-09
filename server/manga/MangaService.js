@@ -15,9 +15,10 @@ export default class MangaService {
         const hotObservable = rx.Observable.from(mangaHandles)
             .flatMapWithMaxConcurrent(1, mangaHandle => rx.Observable.defer(() => this.getOrLoad(mangaHandle)))
             .do((manga) => {
-                this.mangaEvents.emitLoadedManga(manga);
+                this.mangaEvents.emitManga(manga);
             })
             .publish();
+        hotObservable.subscribeOnError(e => console.error(e.stack));
         hotObservable.connect();
         return hotObservable;
     }

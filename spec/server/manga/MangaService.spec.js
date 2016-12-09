@@ -1,21 +1,18 @@
 import { MangaHandle } from 'manga-api';
 import BottleFactory from '../../../toolkit/BottleFactory';
-import { LoadMangaJob } from '../../../server/job/LoadMangaJobFactory';
 
 describe('MangaService', () => {
     let mangaService;
     let mangaEvents;
     let bottle;
     let repositoryList;
-    let executorService;
 
     beforeEach(() => {
         bottle = BottleFactory.create();
-        mangaEvents = jasmine.createSpyObj('mangaEvents', ['emitLoadedManga']);
-        bottle.constant('mangaEvents', mangaEvents);
+        mangaEvents = bottle.container.mangaEvents;
+        spyOn(mangaEvents, 'emitManga');
         mangaService = bottle.container.mangaService;
         repositoryList = bottle.container.repositoryList;
-        executorService = bottle.container.executorService;
     });
 
     it('should load manga and emit events', (done) => {
@@ -30,7 +27,7 @@ describe('MangaService', () => {
             .search()
             .then(mangaHandles => mangaService.loadMangas(mangaHandles).toPromise())
             .then(() => {
-                expect(mangaEvents.emitLoadedManga.calls.count()).toBe(2);
+                expect(mangaEvents.emitManga.calls.count()).toBe(2);
             })
             .catch(fail)
             .then(done);
@@ -43,7 +40,7 @@ describe('MangaService', () => {
 
         spyOn(repositoryList.get('MockRepository'), 'search').and.returnValue(search);
 
-        mangaEvents.emitLoadedManga.and.callFake(done);
+        mangaEvents.emitManga.and.callFake(done);
 
         repositoryList.get('MockRepository')
             .search()
@@ -56,7 +53,7 @@ describe('MangaService', () => {
         mangaService.loadMangas(handles)
             .toPromise()
             .then(() => {
-                expect(mangaEvents.emitLoadedManga.calls.count()).toBe(2);
+                expect(mangaEvents.emitManga.calls.count()).toBe(2);
             })
             .catch(fail)
             .then(done);
