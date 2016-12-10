@@ -1,4 +1,4 @@
-a.chapter-link(ui-sref="read-chapter($ctrl.chapter._id)")
+a.chapter-link(ui-sref="read-chapter({chapterId:$ctrl.chapter._id})")
     span(ng-if="$ctrl.chapter.volume")
         span Vol: {{$ctrl.chapter.volume}}
         = ' '

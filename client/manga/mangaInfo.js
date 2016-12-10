@@ -1,11 +1,11 @@
 import angular from 'angular';
 
 class MangaInfoController {
-    constructor(mangaDetailsService, chapterService) {
+    constructor(mangaDetailsService, chapterDetailsService) {
         'ngInject';
 
         this.mangaDetailsService = mangaDetailsService;
-        this.chapterService = chapterService;
+        this.chapterDetailsService = chapterDetailsService;
     }
 
     getPreviewImage() {
@@ -26,11 +26,11 @@ class MangaInfoController {
     }
 
     isLoaded(chapterHandle) {
-        return this.chapterService.isChapterLoaded(chapterHandle);
+        return this.chapterDetailsService.isChapterLoaded(chapterHandle);
     }
 
     getChapter(chapterHandle) {
-        return this.chapterService.getChapter(chapterHandle);
+        return this.chapterDetailsService.getChapter(chapterHandle);
     }
 }
 

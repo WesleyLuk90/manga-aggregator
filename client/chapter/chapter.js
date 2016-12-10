@@ -1,10 +1,14 @@
 import angular from 'angular';
-import chapterService from './chapterService';
 import chapterLink from './chapterLink';
+import readChapterPage from './readChapterPage';
+import chapterDetailsService from './chapterDetailsService';
+import chapterService from './chapterService';
 
 export default angular
     .module('mangaApp.chapter', [
-        chapterService,
+        chapterDetailsService,
         chapterLink,
+        readChapterPage,
+        chapterService,
     ])
     .name;

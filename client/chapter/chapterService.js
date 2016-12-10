@@ -1,23 +1,18 @@
 import angular from 'angular';
 
 class ChapterService {
-    constructor(updateService) {
+    constructor(requestService) {
         'ngInject';
 
-        this.chapters = new Map();
-        updateService.subscribe('chapter', chapter => this.addChapter(chapter));
+        this.requestService = requestService;
     }
 
-    addChapter(chapter) {
-        this.chapters.set(chapter.chapterHandle.url, chapter);
-    }
-
-    isChapterLoaded(chapterHandle) {
-        return this.chapters.has(chapterHandle.url);
-    }
-
-    getChapter(chapterHandle) {
-        return this.chapters.get(chapterHandle.url);
+    requestLoadChapter(chapterId) {
+        if (typeof chapterId !== 'string') {
+            throw new Error('Expected a string');
+        }
+        return this.requestService
+            .post('/api/chapter/request-load', { chapterId });
     }
 }
 
