@@ -1,0 +1,12 @@
+a.chapter-link(ui-sref="read-chapter($ctrl.chapter._id)")
+    span(ng-if="$ctrl.chapter.volume")
+        span Vol: {{$ctrl.chapter.volume}}
+        = ' '
+    span(ng-if="$ctrl.chapter.title")
+        span Ch: {{$ctrl.chapter.chapter}} —
+        = ' '
+        span {{$ctrl.chapter.title}}
+    span(ng-if="!$ctrl.chapter.title")
+        span(ng-if="$ctrl.chapter.volume") —
+            = ' '
+        span {{$ctrl.manga.name}} {{$ctrl.chapter.chapter}}

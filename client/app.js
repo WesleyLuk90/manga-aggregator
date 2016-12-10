@@ -13,6 +13,7 @@ import settings from './settings/settings';
 import services from './services/services';
 import repositories from './repositories/repositories';
 import manga from './manga/manga';
+import chapter from './chapter/chapter';
 
 const app = angular
     .module('mangaApp', [
@@ -26,6 +27,7 @@ const app = angular
         services,
         repositories,
         manga,
+        chapter,
         'ui.router',
     ]);
 app.config(($locationProvider) => {
@@ -35,7 +37,9 @@ app.config(($locationProvider) => {
     });
 });
 app.run((updateService) => {
-    updateService.start();
+    if (!window.inject) {
+        updateService.start();
+    }
 });
 
 window.jQuery(() =>

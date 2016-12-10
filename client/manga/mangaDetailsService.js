@@ -24,8 +24,6 @@ class MangaDetailsService {
     }
 
     addManga(manga) {
-        console.log(manga.mangaHandle.url);
-        console.log(manga._id);
         this.detailsByHandle.set(manga.mangaHandle.url, manga);
         this.detailsById.set(manga._id, manga);
     }

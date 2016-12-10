@@ -16,6 +16,6 @@ describe('requestService', () => {
         const postSpy = spyOn($http, 'post').and.returnValue(Promise.resolve());
         requestService.post('/hello/world', { some: 'data' });
 
-        expect(postSpy).toHaveBeenCalledWith('/hello/world', { data: { some: 'data' } });
+        expect(postSpy).toHaveBeenCalledWith('/hello/world', { some: 'data' });
     });
 });

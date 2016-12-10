@@ -1,2 +1,26 @@
 .manga-info
-    h2 {{$ctrl.manga.title}}
+    img.pull-right(ng-src="{{$ctrl.getPreviewImage()}}")
+    h2 {{$ctrl.manga.name}}
+    h3 Author
+    p {{$ctrl.getAuthors()}}
+    h3 Artist
+    p {{$ctrl.getArtists()}}
+    h3 Genres
+    p {{$ctrl.getGenres()}}
+    h3 Release Year
+    p {{$ctrl.manga.releaseYear}}
+    h3 Summary
+    p {{$ctrl.manga.summary}}
+
+    h3 Chapters
+    table.table
+        thead
+            tr
+                th
+        tbody
+            tr(ng-repeat-start="chapter in $ctrl.manga.chapters", ng-if="!$ctrl.isLoaded(chapter)")
+                td
+                    span.fa.fa-fw.fa-circle-o-notch.fa-spin
+            tr(ng-repeat-end, ng-if="$ctrl.isLoaded(chapter)")
+                td
+                    chapter-link(chapter="$ctrl.getChapter(chapter)", manga="$ctrl.manga")

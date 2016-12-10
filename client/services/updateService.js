@@ -16,9 +16,13 @@ class UpdateService {
             console.log('Socket is now connected');
         });
         this.socket.on('event', (data) => {
-            this.$rootScope.$apply(() => {
-                this.eventStream.onNext(data);
-            });
+            this.emit(data);
+        });
+    }
+
+    emit(eventData) {
+        this.$rootScope.$apply(() => {
+            this.eventStream.onNext(eventData);
         });
     }
 
