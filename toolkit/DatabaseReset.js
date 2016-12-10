@@ -2,8 +2,10 @@ import BottleFactory from './BottleFactory';
 
 export default class DatabaseReset {
     static reset() {
-        const bottle = BottleFactory.create();
+        const container = BottleFactory.create().container;
 
-        return bottle.container.Manga.remove({});
+        return Promise.resolve()
+            .then(() => container.Manga.remove({}))
+            .then(() => container.Chapter.remove({}));
     }
 }
