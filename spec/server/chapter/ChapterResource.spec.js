@@ -1,12 +1,16 @@
 import { ChapterHandle, Chapter } from 'manga-api';
 import BottleFactory from '../../../toolkit/BottleFactory';
+import DatabaseReset from '../../../toolkit/DatabaseReset';
 
 describe('ChapterResource', () => {
     let chapterResource;
 
-    beforeEach(() => {
+    beforeEach((done) => {
         const bottle = BottleFactory.create();
         chapterResource = bottle.container.chapterResource;
+        DatabaseReset.reset()
+            .catch(fail)
+            .then(done);
     });
 
     it('should create chapters', (done) => {
@@ -51,6 +55,18 @@ describe('ChapterResource', () => {
         const chapter = new Chapter(chapterHandle);
         chapterResource.upsert(chapter)
             .then(createdChapter => chapterResource.getById(createdChapter._id))
+            .then(foundChapter => expect(foundChapter).toBeTruthy())
+            .catch(fail)
+            .then(done);
+    });
+
+    it('should get chapters by handle', (done) => {
+        const chapterHandle = ChapterHandle.fromUrl('mock://chapter');
+        const chapter = new Chapter(chapterHandle);
+        chapterResource.getByHandle(chapterHandle)
+            .then(foundChapter => expect(foundChapter).toBe(null))
+            .then(() => chapterResource.upsert(chapter))
+            .then(() => chapterResource.getByHandle(chapterHandle))
             .then(foundChapter => expect(foundChapter).toBeTruthy())
             .catch(fail)
             .then(done);

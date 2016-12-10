@@ -1,5 +1,5 @@
 import superagent from 'superagent';
-import ImageServer from './ImageServer';
+import ImageServer from '../../toolkit/ImageServer';
 
 describe('ImageServer', () => {
     let server;

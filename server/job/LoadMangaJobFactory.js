@@ -38,7 +38,7 @@ export class LoadMangaJob extends Job {
 
     loadAndEmitChapter(chapterHandle) {
         return this.chapterService
-            .loadChapter(chapterHandle)
+            .getOrLoadChapter(chapterHandle)
             .then(loadedChapter => this.chapterEvents.emitChapter(loadedChapter));
     }
 }

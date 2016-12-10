@@ -31,4 +31,16 @@ describe('ChapterService', () => {
             .catch(fail)
             .then(done);
     });
+
+    it('should get or load chapters', (done) => {
+        const handle = ChapterHandle.fromUrl('mock://chapter');
+        chapterService.getOrLoadChapter(handle)
+            .then(() => {
+                spyOn(chapterResource, 'upsert').and.returnValue(Promise.resolve());
+                return chapterService.getOrLoadChapter(handle);
+            })
+            .then(() => expect(chapterResource.upsert).not.toHaveBeenCalled())
+            .catch(fail)
+            .then(done);
+    });
 });

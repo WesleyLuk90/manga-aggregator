@@ -1,5 +1,5 @@
-import BottleFactory from './BottleFactory';
-import DatabaseReset from './DatabaseReset';
+import BottleFactory from '../../toolkit/BottleFactory';
+import DatabaseReset from '../../toolkit/DatabaseReset';
 
 describe('DatabaseReset', () => {
     function testForModel(modelName) {

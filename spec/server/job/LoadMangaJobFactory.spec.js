@@ -1,4 +1,5 @@
 import BottleFactory from '../../../toolkit/BottleFactory';
+import DatabaseReset from '../../../toolkit/DatabaseReset';
 
 describe('LoadMangaJobFactory', () => {
     let factory;
@@ -9,7 +10,7 @@ describe('LoadMangaJobFactory', () => {
     let mangaEvents;
     let chapterEvents;
 
-    beforeEach(() => {
+    beforeEach((done) => {
         const bottle = BottleFactory.create();
         factory = bottle.container.loadMangaJobFactory;
         mangaResource = bottle.container.mangaResource;
@@ -18,6 +19,10 @@ describe('LoadMangaJobFactory', () => {
         mangaEvents = bottle.container.mangaEvents;
         chapterEvents = bottle.container.chapterEvents;
         job = factory.create('some-id');
+
+        DatabaseReset.reset()
+            .catch(fail)
+            .then(done);
     });
 
     it('should create jobs', () => {
@@ -32,7 +37,7 @@ describe('LoadMangaJobFactory', () => {
             };
             spyOn(mangaResource, 'getById').and.returnValue(Promise.resolve(manga));
             spyOn(mangaService, 'loadManga').and.returnValue(Promise.resolve(manga));
-            spyOn(chapterService, 'loadChapter').and.returnValues(Promise.resolve(manga.chapters[0]), Promise.resolve(manga.chapters[1]));
+            spyOn(chapterService, 'getOrLoadChapter').and.returnValues(Promise.resolve(manga.chapters[0]), Promise.resolve(manga.chapters[1]));
             spyOn(mangaEvents, 'emitManga');
             spyOn(chapterEvents, 'emitChapter');
 
@@ -42,7 +47,7 @@ describe('LoadMangaJobFactory', () => {
                     expect(mangaService.loadManga).toHaveBeenCalledWith({ url: 'mock://manga' });
                     expect(mangaEvents.emitManga).toHaveBeenCalledWith(manga);
                     manga.chapters.forEach((chapter) => {
-                        expect(chapterService.loadChapter).toHaveBeenCalledWith(chapter);
+                        expect(chapterService.getOrLoadChapter).toHaveBeenCalledWith(chapter);
                         expect(chapterEvents.emitChapter).toHaveBeenCalledWith(chapter);
                     });
                 })

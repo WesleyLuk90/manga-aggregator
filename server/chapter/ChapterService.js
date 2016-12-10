@@ -13,6 +13,16 @@ export default class ChapterService {
             .then(chapter => this.chapterResource.upsert(chapter));
     }
 
+    getOrLoadChapter(chapterHandle) {
+        return this.chapterResource.getByHandle(chapterHandle)
+            .then((chapter) => {
+                if (chapter == null) {
+                    return this.loadChapter(chapterHandle);
+                }
+                return chapter;
+            });
+    }
+
     toHandle(chapterHandle) {
         if (!(chapterHandle instanceof ChapterHandle) && chapterHandle.url) {
             return ChapterHandle.fromUrl(chapterHandle.url);

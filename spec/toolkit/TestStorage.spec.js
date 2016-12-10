@@ -1,8 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 
-import TestStorage from './TestStorage';
-import BottleFactory from './BottleFactory';
+import TestStorage from '../../toolkit/TestStorage';
+import BottleFactory from '../../toolkit/BottleFactory';
 
 describe('TestStorage', () => {
     let storage;
