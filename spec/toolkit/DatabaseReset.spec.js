@@ -20,4 +20,5 @@ describe('DatabaseReset', () => {
 
     testForModel('Manga');
     testForModel('Chapter');
+    testForModel('Page');
 });

@@ -6,6 +6,7 @@ export default class DatabaseReset {
 
         return Promise.resolve()
             .then(() => container.Manga.remove({}))
-            .then(() => container.Chapter.remove({}));
+            .then(() => container.Chapter.remove({}))
+            .then(() => container.Page.remove({}));
     }
 }

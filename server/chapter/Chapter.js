@@ -2,11 +2,11 @@ import { Schema } from 'mongoose';
 
 export default function createChapter(connection) {
     return connection.model('Chapter', {
-        chapterHandle: new Schema({ url: String }),
+        chapterHandle: new Schema({ url: { type: String, index: true } }),
         title: String,
         volume: String,
         chapter: String,
-        pages: [new Schema({ url: String })],
+        pages: [new Schema({ url: { type: String, index: true } })],
     });
 }
 

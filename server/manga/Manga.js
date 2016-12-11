@@ -2,7 +2,7 @@ import { Schema } from 'mongoose';
 
 export default function createManga(connection) {
     return connection.model('Manga', {
-        mangaHandle: new Schema({ url: String }),
+        mangaHandle: new Schema({ url: { type: String, index: true } }),
         name: String,
         altNames: [String],
         releaseYear: String,
@@ -11,7 +11,7 @@ export default function createManga(connection) {
         genres: [String],
         summary: String,
         previewImageUrl: String,
-        chapters: [new Schema({ url: String })],
+        chapters: [new Schema({ url: { type: String, index: true } })],
     });
 }
 

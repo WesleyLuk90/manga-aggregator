@@ -1,9 +1,13 @@
 import fs from 'fs';
 import rimraf from 'rimraf';
+import mkdirp from 'mkdirp';
+import path from 'path';
 
 export default class TestStorage {
     init(bottle) {
-        this.folder = fs.mkdtempSync(`${__dirname}/temp_`);
+        const tempFolder = path.join(__dirname, '../temp');
+        mkdirp.sync(tempFolder);
+        this.folder = fs.mkdtempSync(`${tempFolder}/temp_`);
         afterEach(() => this.dispose());
         process.on('exit', () => this.dispose());
         if (bottle) {
@@ -20,10 +24,15 @@ export default class TestStorage {
     }
 
     dispose() {
-        if (this.folder) {
+        if (this.folder && !this.cleanupDisabled) {
             rimraf.sync(this.getFolder());
             this.folder = null;
         }
+    }
+
+    disableCleanup(disabled) {
+        this.cleanupDisabled = disabled;
+        return this;
     }
 
     patch(bottle) {

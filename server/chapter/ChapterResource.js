@@ -19,6 +19,10 @@ export default class ChapterResource {
     getByHandle(handle) {
         return this.Chapter.findOne({ 'chapterHandle.url': handle.url });
     }
+
+    getByPage(page) {
+        return this.Chapter.findOne({ 'pages.url': page.url });
+    }
 }
 
 ChapterResource.$name = 'chapterResource';

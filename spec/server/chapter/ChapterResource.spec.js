@@ -1,4 +1,4 @@
-import { ChapterHandle, Chapter } from 'manga-api';
+import { ChapterHandle, Chapter, PageHandle } from 'manga-api';
 import BottleFactory from '../../../toolkit/BottleFactory';
 import DatabaseReset from '../../../toolkit/DatabaseReset';
 
@@ -75,6 +75,17 @@ describe('ChapterResource', () => {
     it('should not get non-existant chapters', (done) => {
         chapterResource.getById('aaaaaaaaaaaaaaaaaaaaaaaa')
             .then(chapter => expect(chapter).toBeNull())
+            .catch(fail)
+            .then(done);
+    });
+
+    it('should get by page', (done) => {
+        const pageHandle = PageHandle.fromUrl('mock://page');
+        const chapter = new Chapter(ChapterHandle.fromUrl('mock://chapter'))
+            .setPages([pageHandle]);
+        chapterResource.upsert(chapter)
+            .then(createdChapter => chapterResource.getByPage(pageHandle)
+                .then(foundChapter => expect(foundChapter._id).toEqual(createdChapter._id)))
             .catch(fail)
             .then(done);
     });

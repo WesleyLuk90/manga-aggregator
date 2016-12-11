@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 export default class MangaResource {
     constructor(Manga) {
         this.Manga = Manga;
@@ -13,6 +14,10 @@ export default class MangaResource {
 
     getById(mangaId) {
         return this.Manga.findOne({ _id: mangaId });
+    }
+
+    getByChapter(chapterHandle) {
+        return this.Manga.findOne({ 'chapters.url': chapterHandle.url });
     }
 }
 

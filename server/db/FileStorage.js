@@ -24,7 +24,7 @@ export default class FileStorage {
     }
 
     escape(pathToEscape) {
-        return pathToEscape.replace(/[^a-zA-Z0-9_ -]/g, '') || '_';
+        return pathToEscape.replace(/[^a-zA-Z0-9_ \-.]/g, '') || '_';
     }
 }
 

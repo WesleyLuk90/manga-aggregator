@@ -84,4 +84,15 @@ describe('MangaResource', () => {
             .catch(fail)
             .then(done);
     });
+
+    it('should get manga by chapter', (done) => {
+        const chapterHandle = ChapterHandle.fromUrl('mock://chapter');
+        const manga = new Manga(MangaHandle.fromUrl('mock://manga'))
+            .setChapters([chapterHandle]);
+        mangaResource.upsert(manga)
+            .then(createdManga => mangaResource.getByChapter(chapterHandle)
+                .then(foundManga => expect(createdManga._id).toEqual(foundManga._id)))
+            .catch(fail)
+            .then(done);
+    });
 });

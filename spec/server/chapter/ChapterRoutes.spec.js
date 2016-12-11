@@ -1,6 +1,6 @@
 import BottleFactory from '../../../toolkit/BottleFactory';
 
-describe('ChapterRoutes', () => {
+xdescribe('ChapterRoutes', () => {
     let chapterRoutes;
 
     beforeEach(() => {
