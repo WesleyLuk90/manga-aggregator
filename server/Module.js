@@ -9,6 +9,7 @@ import ChapterModule from './chapter/ChapterModule';
 import MangaModule from './manga/MangaModule';
 import MiddlewareModule from './middleware/MiddlewareModule';
 import JobModule from './job/JobModule';
+import PageModule from './page/PageModule';
 
 export default class Module {
     constructor() {
@@ -23,6 +24,7 @@ export default class Module {
         bottle.register(Configuration);
         bottle.register(FileStorage);
 
+        PageModule.register(bottle);
         JobModule.register(bottle);
         ChapterModule.register(bottle);
         MangaModule.register(bottle);

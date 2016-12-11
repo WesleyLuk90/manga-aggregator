@@ -26,6 +26,7 @@ fdescribe('LoadChapterJobFactory', () => {
                 { url: 'mock://page2' },
             ]);
         spyOn(chapterResource, 'getById').and.returnValue(Promise.resolve(chapter));
+        spyOn(pageService, 'getOrLoadPage').and.returnValue(Promise.resolve());
 
         job.run()
             .then(() => {
