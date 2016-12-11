@@ -1,7 +1,7 @@
 import { ChapterHandle, Chapter } from 'manga-api';
 import BottleFactory from '../../../toolkit/BottleFactory';
 
-fdescribe('LoadChapterJobFactory', () => {
+describe('LoadChapterJobFactory', () => {
     let loadChapterJobFactory;
     let chapterResource;
     let pageService;
