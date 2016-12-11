@@ -5,11 +5,10 @@ import Connection from './db/Connection';
 import Server from './server/Server';
 import Configuration from './server/Configuration';
 import FileStorage from './db/FileStorage';
-import ExecutorService from './job/ExecutorService';
-import LoadMangaJobFactory from './job/LoadMangaJobFactory';
 import ChapterModule from './chapter/ChapterModule';
 import MangaModule from './manga/MangaModule';
 import MiddlewareModule from './middleware/MiddlewareModule';
+import JobModule from './job/JobModule';
 
 export default class Module {
     constructor() {
@@ -21,10 +20,10 @@ export default class Module {
         bottle.register(RepositoryList);
         bottle.register(Server);
         bottle.register(Connection);
-        bottle.register(LoadMangaJobFactory);
         bottle.register(Configuration);
         bottle.register(FileStorage);
-        bottle.register(ExecutorService);
+
+        JobModule.register(bottle);
         ChapterModule.register(bottle);
         MangaModule.register(bottle);
         MiddlewareModule.register(bottle);
