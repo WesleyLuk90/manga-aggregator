@@ -41,4 +41,15 @@ describe('ExecutorService', () => {
             .catch(fail)
             .then(done);
     });
+
+    it('should log errors', (done) => {
+        spyOn(console, 'error');
+        const job = new TestJob();
+        spyOn(job, 'run').and.returnValue(Promise.reject('hello'));
+        executor.start();
+        executor.submit(job)
+            .then(fail)
+            .catch(() => expect(console.error).toHaveBeenCalledWith('hello'))
+            .then(done);
+    });
 });

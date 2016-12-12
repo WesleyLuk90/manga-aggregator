@@ -4,6 +4,7 @@ export default class ExecutorService {
     start() {
         this.started = true;
     }
+
     submit(job) {
         if (!(job instanceof Job)) {
             throw new Error('Expected a Job');
@@ -11,8 +12,15 @@ export default class ExecutorService {
         if (!this.started) {
             throw new Error('Executor not started');
         }
-        return Promise.resolve().then(() => job.run());
+        const promise = Promise.resolve().then(() => job.run());
+        promise.catch((e) => this.handleError(e));
+        return promise;
     }
+
+    handleError(e) {
+        console.error(e);
+    }
+
     stop() {
 
     }

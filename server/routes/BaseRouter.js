@@ -4,4 +4,8 @@ export default class BaseRouter {
             res.status(err.status || 400).json(err);
         };
     }
+
+    getRouter() {
+        throw new Error('Not Implemented');
+    }
 }
