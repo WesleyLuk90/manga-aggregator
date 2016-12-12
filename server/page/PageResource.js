@@ -10,6 +10,9 @@ export default class PageResource {
     }
 
     getByHandle(pageHandle) {
+        if (typeof pageHandle.url !== 'string') {
+            throw new Error('Expected a page handle');
+        }
         return this.Page.findOne({ 'pageHandle.url': pageHandle.url });
     }
 

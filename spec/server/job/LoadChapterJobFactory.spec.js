@@ -5,12 +5,16 @@ describe('LoadChapterJobFactory', () => {
     let loadChapterJobFactory;
     let chapterResource;
     let pageService;
+    let pageEvents;
+    let pageResource;
 
     beforeEach(() => {
         const bottle = BottleFactory.create();
         loadChapterJobFactory = bottle.container.loadChapterJobFactory;
         chapterResource = bottle.container.chapterResource;
         pageService = bottle.container.pageService;
+        pageEvents = bottle.container.pageEvents;
+        pageResource = bottle.container.pageResource;
     });
 
     it('should create jobs with chapter id', () => {
@@ -27,12 +31,18 @@ describe('LoadChapterJobFactory', () => {
             ]);
         spyOn(chapterResource, 'getById').and.returnValue(Promise.resolve(chapter));
         spyOn(pageService, 'getOrLoadPage').and.returnValue(Promise.resolve());
+        spyOn(pageEvents, 'emitPage').and.returnValue(Promise.resolve());
+        spyOn(pageResource, 'getByHandle').and.returnValues(
+            Promise.resolve(chapter.getPage(0)),
+            Promise.resolve(chapter.getPage(1)));
 
         job.run()
             .then(() => {
                 expect(chapterResource.getById).toHaveBeenCalledWith('some chapter id');
                 expect(pageService.getOrLoadPage).toHaveBeenCalledWith(chapter.getPage(0));
+                expect(pageEvents.emitPage).toHaveBeenCalledWith(chapter.getPage(0));
                 expect(pageService.getOrLoadPage).toHaveBeenCalledWith(chapter.getPage(1));
+                expect(pageEvents.emitPage).toHaveBeenCalledWith(chapter.getPage(1));
             })
             .catch(fail)
             .then(done);
