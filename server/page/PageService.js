@@ -114,6 +114,15 @@ export default class PageService {
         return this.downloadPageTo(page, path.join(chapterPath, fileName))
             .then(() => this.updatePageFilename(page, fileName));
     }
+
+    getPagePath(pageId) {
+        if (typeof pageId !== 'string') {
+            throw new Error('Expected a page id');
+        }
+        return this.pageResource
+            .getById(pageId)
+            .then(page => this.mangaPaths.getPageImagePath(page));
+    }
 }
 
 PageService.$name = 'pageService';

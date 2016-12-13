@@ -96,4 +96,18 @@ describe('PageService', () => {
                 .then(done);
         });
     });
+
+    it('should get page paths', (done) => {
+        const page = new Page(PageHandle.fromUrl('mock://page'));
+        spyOn(pageResource, 'getById').and.returnValue(Promise.resolve(page));
+        spyOn(mangaPaths, 'getPageImagePath').and.returnValue(Promise.resolve('/some/path'));
+        pageService.getPagePath('some-page-id')
+            .then((pagePath) => {
+                expect(pagePath).toBe('/some/path');
+                expect(pageResource.getById).toHaveBeenCalledWith('some-page-id');
+                expect(mangaPaths.getPageImagePath).toHaveBeenCalledWith(page);
+            })
+            .catch(fail)
+            .then(done);
+    });
 });

@@ -1,4 +1,4 @@
-import { ChapterHandle, Chapter } from 'manga-api';
+import { ChapterHandle, Chapter, PageHandle } from 'manga-api';
 import BottleFactory from '../../../toolkit/BottleFactory';
 
 describe('LoadChapterJobFactory', () => {
@@ -39,9 +39,9 @@ describe('LoadChapterJobFactory', () => {
         job.run()
             .then(() => {
                 expect(chapterResource.getById).toHaveBeenCalledWith('some chapter id');
-                expect(pageService.getOrLoadPage).toHaveBeenCalledWith(chapter.getPage(0));
+                expect(pageService.getOrLoadPage).toHaveBeenCalledWith(PageHandle.fromUrl(chapter.getPage(0).url));
                 expect(pageEvents.emitPage).toHaveBeenCalledWith(chapter.getPage(0));
-                expect(pageService.getOrLoadPage).toHaveBeenCalledWith(chapter.getPage(1));
+                expect(pageService.getOrLoadPage).toHaveBeenCalledWith(PageHandle.fromUrl(chapter.getPage(1).url));
                 expect(pageEvents.emitPage).toHaveBeenCalledWith(chapter.getPage(1));
             })
             .catch(fail)
