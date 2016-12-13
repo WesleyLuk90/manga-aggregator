@@ -1,4 +1,5 @@
 import Rx from 'rx';
+import { PageHandle } from 'manga-api';
 import Job from './Job';
 
 export class LoadChapterJob extends Job {
@@ -25,8 +26,9 @@ export class LoadChapterJob extends Job {
     }
 
     loadPage(pageHandle) {
-        return this.pageService.getOrLoadPage(pageHandle)
-            .then(() => this.pageResource.getByHandle(pageHandle))
+        const handle = PageHandle.fromUrl(pageHandle.url);
+        return this.pageService.getOrLoadPage(handle)
+            .then(() => this.pageResource.getByHandle(handle))
             .then(foundPage => this.pageEvents.emitPage(foundPage));
     }
 

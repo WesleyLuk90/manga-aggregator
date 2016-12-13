@@ -9,11 +9,16 @@ export default class TestStorage {
         mkdirp.sync(tempFolder);
         this.folder = fs.mkdtempSync(`${tempFolder}/temp_`);
         afterEach(() => this.dispose());
-        process.on('exit', () => this.dispose());
+        this.scheduleCleanup();
         if (bottle) {
             this.patch(bottle);
         }
         return this;
+    }
+
+    scheduleCleanup() {
+        this.disposeCallback = () => this.dispose();
+        process.on('exit', this.disposeCallback);
     }
 
     getFolder() {
@@ -24,6 +29,10 @@ export default class TestStorage {
     }
 
     dispose() {
+        if (this.disposeCallback) {
+            process.removeListener('exit', this.disposeCallback);
+            this.disposeCallback = null;
+        }
         if (this.folder && !this.cleanupDisabled) {
             rimraf.sync(this.getFolder());
             this.folder = null;

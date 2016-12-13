@@ -12,9 +12,9 @@ export default class ChapterRoutes extends BaseRouter {
         res.json({});
     }
 
-    getRoutes() {
+    getRouter() {
         const router = new express.Router();
-        router.get('/api/chapter/request-load', (req, res) => this.requestLoadChapter(req, res));
+        router.post('/api/chapter/request-load', (req, res) => this.requestLoadChapter(req, res));
         return router;
     }
 

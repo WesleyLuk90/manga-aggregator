@@ -35,6 +35,7 @@ export default class ImageServer {
         this.app = express();
         this.server = new Server(this.app);
         this.makeRoutes();
+        afterEach(() => this.stop());
         return new Promise((resolve) => {
             this.server.listen(0, resolve);
         });
@@ -42,10 +43,12 @@ export default class ImageServer {
 
     stop() {
         if (!this.server) {
-            throw new Error('Server has not been started');
+            return Promise.resolve();
         }
+        const server = this.server;
+        this.server = null;
         return new Promise((resolve) => {
-            this.server.close(resolve);
+            server.close(resolve);
         });
     }
 }

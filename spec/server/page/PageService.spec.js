@@ -40,6 +40,11 @@ describe('PageService', () => {
             .then(done);
     });
 
+    it('should throw an error if the parameter is not a handle', () => {
+        expect(() => pageService.getOrLoadPage({ url: 'handle' })).toThrowError('Expected a PageHandle');
+        expect(() => pageService.loadPage({ url: 'handle' })).toThrowError('Expected a PageHandle');
+    });
+
     describe('loads pages', () => {
         let pageHandle;
         let chapter;

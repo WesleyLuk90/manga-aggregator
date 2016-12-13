@@ -2,6 +2,7 @@ import fs from 'fs';
 import Q from 'q';
 import path from 'path';
 import _ from 'lodash';
+import { PageHandle } from 'manga-api';
 
 export default class PageService {
 
@@ -14,6 +15,7 @@ export default class PageService {
     }
 
     getOrLoadPage(pageHandle) {
+        this.checkHandle(pageHandle);
         return this.pageIsLoaded(pageHandle)
             .then((isLoaded) => {
                 if (isLoaded) {
@@ -21,6 +23,12 @@ export default class PageService {
                 }
                 return this.loadPage(pageHandle);
             });
+    }
+
+    checkHandle(pageHandle) {
+        if (!(pageHandle instanceof PageHandle)) {
+            throw new Error('Expected a PageHandle');
+        }
     }
 
     pageIsLoaded(pageHandle) {
@@ -47,6 +55,7 @@ export default class PageService {
     }
 
     loadPage(pageHandle) {
+        this.checkHandle(pageHandle);
         return this.requestRepositoryPage(pageHandle)
             .then(page =>
                 this.createPageFileName(page)
