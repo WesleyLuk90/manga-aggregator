@@ -5,14 +5,21 @@ class ChapterService {
         'ngInject';
 
         this.requestService = requestService;
+
+        this.loadedChapters = new Map();
     }
 
     requestLoadChapter(chapterId) {
         if (typeof chapterId !== 'string') {
             throw new Error('Expected a string');
         }
-        return this.requestService
+        if (this.loadedChapters.has(chapterId)) {
+            return this.loadedChapters.get(chapterId);
+        }
+        const promise = this.requestService
             .post('/api/chapter/request-load', { chapterId });
+        this.loadedChapters.set(chapterId, promise);
+        return promise;
     }
 }
 

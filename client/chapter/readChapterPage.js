@@ -1,26 +1,23 @@
 import angular from 'angular';
 
 class ReadChapterPageController {
-    constructor($stateParams, chapterDetailsService) {
+    constructor(pageNavigationService, chapterDetailsService) {
         'ngInject';
 
-        this.$stateParams = $stateParams;
+        this.pageNavigationService = pageNavigationService;
         this.chapterDetailsService = chapterDetailsService;
     }
 
     getCurrentPageIndex() {
-        if (this.$stateParams.pageNumber) {
-            return this.$stateParams.pageNumber - 1;
-        }
-        return 0;
+        return this.pageNavigationService.getCurrentPageIndex();
     }
 
     getCurrentChapter() {
-        return this.chapterDetailsService.getChapterById(this.$stateParams.chapterId);
+        return this.chapterDetailsService.getChapterById(this.pageNavigationService.getChapterId());
     }
 
     isLoaded() {
-        return this.chapterDetailsService.isChapterLoadedById(this.$stateParams.chapterId);
+        return this.chapterDetailsService.isChapterLoadedById(this.pageNavigationService.getChapterId());
     }
 }
 
@@ -32,12 +29,16 @@ export default angular.module('mangaApp.readChapterPage', [])
             name: 'read-chapter',
             url: '/read/:chapterId/:pageNumber',
             template: '<read-chapter-page />',
-            onEnter: ($stateParams, chapterService) => {
+            onEnter: ($stateParams, chapterService, pageNavigationService) => {
                 'ngInject';
 
                 if ($stateParams.chapterId) {
                     chapterService.requestLoadChapter($stateParams.chapterId);
                 }
+                pageNavigationService.enableHotkeys();
+            },
+            onExit: (pageNavigationService) => {
+                pageNavigationService.disableHotkeys()
             },
         });
     })

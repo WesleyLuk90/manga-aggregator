@@ -12,4 +12,13 @@ describe('chapterService', () => {
             .catch(fail)
             .then(done);
     });
+
+    it('should not request the same chapter twice', (done) => {
+        spyOn(requestService, 'post').and.returnValue(Promise.resolve());
+        chapterService.requestLoadChapter('some chapter id')
+            .then(() => chapterService.requestLoadChapter('some chapter id'))
+            .then(() => expect(requestService.post.calls.count()).toBe(1))
+            .catch(fail)
+            .then(done);
+    });
 });
