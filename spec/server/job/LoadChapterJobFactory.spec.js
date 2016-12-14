@@ -7,6 +7,7 @@ describe('LoadChapterJobFactory', () => {
     let pageService;
     let pageEvents;
     let pageResource;
+    let chapterEvents;
 
     beforeEach(() => {
         const bottle = BottleFactory.create();
@@ -15,6 +16,7 @@ describe('LoadChapterJobFactory', () => {
         pageService = bottle.container.pageService;
         pageEvents = bottle.container.pageEvents;
         pageResource = bottle.container.pageResource;
+        chapterEvents = bottle.container.chapterEvents;
     });
 
     it('should create jobs with chapter id', () => {
@@ -30,6 +32,7 @@ describe('LoadChapterJobFactory', () => {
                 { url: 'mock://page2' },
             ]);
         spyOn(chapterResource, 'getById').and.returnValue(Promise.resolve(chapter));
+        spyOn(chapterEvents, 'emitChapter');
         spyOn(pageService, 'getOrLoadPage').and.returnValue(Promise.resolve());
         spyOn(pageEvents, 'emitPage').and.returnValue(Promise.resolve());
         spyOn(pageResource, 'getByHandle').and.returnValues(
@@ -38,6 +41,7 @@ describe('LoadChapterJobFactory', () => {
 
         job.run()
             .then(() => {
+                expect(chapterEvents.emitChapter).toHaveBeenCalledWith(chapter);
                 expect(chapterResource.getById).toHaveBeenCalledWith('some chapter id');
                 expect(pageService.getOrLoadPage).toHaveBeenCalledWith(PageHandle.fromUrl(chapter.getPage(0).url));
                 expect(pageEvents.emitPage).toHaveBeenCalledWith(chapter.getPage(0));

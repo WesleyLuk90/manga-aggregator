@@ -3,13 +3,14 @@ import { PageHandle } from 'manga-api';
 import Job from './Job';
 
 export class LoadChapterJob extends Job {
-    constructor(chapterId, chapterResource, pageService, pageEvents, pageResource) {
+    constructor(chapterId, chapterResource, pageService, pageEvents, pageResource, chapterEvents) {
         super();
         this.chapterId = chapterId;
         this.chapterResource = chapterResource;
         this.pageService = pageService;
         this.pageEvents = pageEvents;
         this.pageResource = pageResource;
+        this.chapterEvents = chapterEvents;
     }
 
     getChapterId() {
@@ -18,7 +19,10 @@ export class LoadChapterJob extends Job {
 
     run() {
         return this.getChapter()
-            .then(chapter => chapter.pages)
+            .then((chapter) => {
+                this.chapterEvents.emitChapter(chapter);
+                return chapter.pages;
+            })
             .then(pages => Rx.Observable.from(pages))
             .then(pages => pages.flatMapWithMaxConcurrent(1,
                     pageHandle => Rx.Observable.defer(() => this.loadPage(pageHandle)))
@@ -38,17 +42,18 @@ export class LoadChapterJob extends Job {
 }
 
 export default class LoadChapterJobFactory {
-    constructor(chapterResource, pageService, pageEvents, pageResource) {
+    constructor(chapterResource, pageService, pageEvents, pageResource, chapterEvents) {
         this.chapterResource = chapterResource;
         this.pageService = pageService;
         this.pageEvents = pageEvents;
         this.pageResource = pageResource;
+        this.chapterEvents = chapterEvents;
     }
 
     create(chapterId) {
-        return new LoadChapterJob(chapterId, this.chapterResource, this.pageService, this.pageEvents, this.pageResource);
+        return new LoadChapterJob(chapterId, this.chapterResource, this.pageService, this.pageEvents, this.pageResource, this.chapterEvents);
     }
 }
 
 LoadChapterJobFactory.$name = 'loadChapterJobFactory';
-LoadChapterJobFactory.$inject = ['chapterResource', 'pageService', 'pageEvents', 'pageResource'];
+LoadChapterJobFactory.$inject = ['chapterResource', 'pageService', 'pageEvents', 'pageResource', 'chapterEvents'];
