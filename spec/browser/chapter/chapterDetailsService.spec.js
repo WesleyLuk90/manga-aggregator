@@ -11,4 +11,14 @@ describe('chapterDetailsService', () => {
         expect(chapterDetailsService.isChapterLoaded({ url: 'blah' })).toBe(true);
         expect(chapterDetailsService.getChapter({ url: 'blah' })).toEqual({ chapterHandle: { url: 'blah' } });
     });
+
+    it('should check if a chapter is loaded by id', () => {
+        expect(chapterDetailsService.isChapterLoadedById('some-id')).toBe(false);
+        updateService.emit({ event: 'chapter', payload: { _id: 'some-id', chapterHandle: { url: 'blah' } } });
+        expect(chapterDetailsService.isChapterLoadedById('some-id')).toBe(true);
+        expect(chapterDetailsService.getChapterById('some-id')).toEqual({
+            _id: 'some-id',
+            chapterHandle: { url: 'blah' },
+        });
+    });
 });

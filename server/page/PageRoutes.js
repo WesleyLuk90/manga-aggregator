@@ -16,7 +16,7 @@ export default class PageRoutes extends BaseRouter {
 
     getRouter() {
         const router = new express.Router();
-        router.post('/api/page/get-page', (req, res) => this.getPage(req, res));
+        router.post('/api/page/get-page/:pageId', (req, res) => this.getPage(req, res));
         return router;
     }
 }

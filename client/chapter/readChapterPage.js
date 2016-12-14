@@ -1,11 +1,26 @@
 import angular from 'angular';
 
 class ReadChapterPageController {
-    constructor($stateParams) {
+    constructor($stateParams, chapterDetailsService) {
         'ngInject';
 
-        console.log($stateParams.chapterId);
-        console.log($stateParams.pageNumber);
+        this.$stateParams = $stateParams;
+        this.chapterDetailsService = chapterDetailsService;
+    }
+
+    getCurrentPageIndex() {
+        if (this.$stateParams.pageNumber) {
+            return this.$stateParams.pageNumber - 1;
+        }
+        return 0;
+    }
+
+    getCurrentChapter() {
+        return this.chapterDetailsService.getChapterById(this.$stateParams.chapterId);
+    }
+
+    isLoaded() {
+        return this.chapterDetailsService.isChapterLoadedById(this.$stateParams.chapterId);
     }
 }
 
