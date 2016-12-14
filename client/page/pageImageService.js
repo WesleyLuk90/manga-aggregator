@@ -6,26 +6,27 @@ class PageImageService {
 
         this.loadedPages = new Map();
 
-        updateService.subscribe('page', (page) => this.addPage(page));
+        updateService.subscribe('page', page => this.addPage(page));
     }
 
     addPage(page) {
-        this.loadedPages.set(page._id, page);
+        this.loadedPages.set(page.pageHandle.url, page);
     }
 
-    isLoaded(pageId) {
-        this.checkPageId(pageId);
-        return this.loadedPages.has(pageId);
+    isLoaded(pageHandle) {
+        this.checkPageHandle(pageHandle);
+        return this.loadedPages.has(pageHandle.url);
     }
 
-    getPageUrl(pageId) {
-        this.checkPageId(pageId);
-        return `/api/page/get-page/${pageId}`;
+    getPageUrl(pageHandle) {
+        this.checkPageHandle(pageHandle);
+        const page = this.loadedPages.get(pageHandle.url);
+        return `/api/page/get-page/${page._id}`;
     }
 
-    checkPageId(pageId) {
-        if (typeof pageId !== 'string') {
-            throw new Error('Expected a page id');
+    checkPageHandle(pageHandle) {
+        if (typeof pageHandle.url !== 'string') {
+            throw new Error('Expected a page handle');
         }
     }
 }

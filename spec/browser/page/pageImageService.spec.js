@@ -6,14 +6,15 @@ describe('pageImageService', () => {
     beforeEach(inject((_updateService_) => { updateService = _updateService_; }));
 
     it('should should check if a page is loaded', () => {
-        expect(pageImageService.isLoaded('some-page-id')).toBe(false);
+        expect(pageImageService.isLoaded({ url: 'some-page-url' })).toBe(false);
 
-        updateService.emit({ event: 'page', payload: { _id: 'some-page-id' } });
+        updateService.emit({ event: 'page', payload: { pageHandle: { url: 'some-page-url' } } });
 
-        expect(pageImageService.isLoaded('some-page-id')).toBe(true);
+        expect(pageImageService.isLoaded({ url: 'some-page-url' })).toBe(true);
     });
 
     it('should get a page url', () => {
-        expect(pageImageService.getPageUrl('some-page-id')).toBe('/api/page/get-page/some-page-id');
+        updateService.emit({ event: 'page', payload: { _id: 'my_page_id', pageHandle: { url: 'some-page-url' } } });
+        expect(pageImageService.getPageUrl({ url: 'some-page-url' })).toBe('/api/page/get-page/my_page_id');
     });
 });

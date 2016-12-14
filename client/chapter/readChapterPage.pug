@@ -1,4 +1,2 @@
 .read-chapter-page
-    p {{$ctrl.$stateParams.chapterId}}
-    p {{$ctrl.getCurrentPageIndex()}}
-    p {{$ctrl.getCurrentChapter()}}
+    view-page(ng-if="$ctrl.isLoaded()", chapter="$ctrl.getCurrentChapter()", page-index="$ctrl.getCurrentPageIndex()")

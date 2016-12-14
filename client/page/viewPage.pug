@@ -1,1 +1,3 @@
 .view-page
+    div(ng-if="$ctrl.isLoaded()")
+        img(ng-src="{{$ctrl.getPageUrl()}}")
