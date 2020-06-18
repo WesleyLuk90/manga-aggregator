@@ -14,7 +14,7 @@
     "author": "Wesley Luk <wesleyluk@gmail.com>",
     "license": "MIT",
     "dependencies": {
-        "angular": "^1.5.9",
+        "angular": "^1.8.0",
         "angular-mocks": "^1.5.9",
         "angular-ui-router": "^0.3.2",
         "babel-core": "^6.18.2",
